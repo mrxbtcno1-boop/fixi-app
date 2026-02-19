@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fixi – Schuldenfrei mit Plan 🦊</title>
+<meta name="description" content="Fixi ist dein persönlicher Finanz-Fuchs. Schulden abbauen mit KI-Coach, Gamification und einem konkreten Datum wann du schuldenfrei bist.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0A0E1A;
+    --bg-card: #141929;
+    --mint: #00D4AA;
+    --purple: #7B61FF;
+    --red-soft: #FF6B6B;
+    --text: #FFFFFF;
+    --text-muted: #8892B0;
+    --fox-orange: #F4845F;
+    --radius: 16px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+    padding: 16px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(10, 14, 26, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+  }
+
+  .nav-logo svg { width: 32px; height: 32px; }
+
+  .nav-logo span {
+    font-size: 22px;
+    font-weight: 900;
+    color: var(--text);
+    letter-spacing: -0.5px;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 28px;
+    align-items: center;
+  }
+
+  .nav-links a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--mint); }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 120px 24px 80px;
+    position: relative;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(0,212,170,0.08) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  .hero-fixi {
+    animation: float 4s ease-in-out infinite;
+    margin-bottom: 32px;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-14px); }
+  }
+
+  .hero h1 {
+    font-size: clamp(40px, 8vw, 72px);
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -2px;
+    margin-bottom: 16px;
+  }
+
+  .hero h1 .gradient-text {
+    background: linear-gradient(135deg, var(--mint), var(--purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .hero p {
+    color: var(--text-muted);
+    font-size: clamp(16px, 2.5vw, 20px);
+    max-width: 500px;
+    margin: 0 auto 40px;
+  }
+
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 36px;
+    background: linear-gradient(135deg, var(--mint), var(--purple));
+    color: #0A0E1A;
+    font-weight: 700;
+    font-size: 16px;
+    border: none;
+    border-radius: 50px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .hero-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0,212,170,0.3);
+  }
+
+  .hero-badge {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 8px 16px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 50px;
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+
+  /* ─── PHONE MOCKUP ─── */
+  .phone-section {
+    display: flex;
+    justify-content: center;
+    padding: 0 24px 80px;
+    position: relative;
+  }
+
+  .phone-frame {
+    width: 280px;
+    height: 580px;
+    background: var(--bg-card);
+    border-radius: 40px;
+    border: 3px solid rgba(255,255,255,0.08);
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 40px 80px rgba(0,0,0,0.5), 0 0 60px rgba(0,212,170,0.05);
+  }
+
+  .phone-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .phone-notch {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 28px;
+    background: #000;
+    border-radius: 0 0 18px 18px;
+    z-index: 2;
+  }
+
+  /* ─── FEATURES ─── */
+  .features {
+    padding: 80px 24px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .features-title {
+    text-align: center;
+    font-size: clamp(28px, 5vw, 40px);
+    font-weight: 900;
+    margin-bottom: 12px;
+    letter-spacing: -1px;
+  }
+
+  .features-sub {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 16px;
+    margin-bottom: 48px;
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+  }
+
+  .feature-card {
+    background: var(--bg-card);
+    border: 1px solid rgba(255,255,255,0.04);
+    border-radius: var(--radius);
+    padding: 28px 24px;
+    transition: transform 0.2s, border-color 0.2s;
+  }
+
+  .feature-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(0,212,170,0.2);
+  }
+
+  .feature-icon {
+    font-size: 28px;
+    margin-bottom: 14px;
+    display: block;
+  }
+
+  .feature-card h3 {
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .feature-card p {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+
+  /* ─── PRICING ─── */
+  .pricing {
+    padding: 80px 24px;
+    text-align: center;
+  }
+
+  .pricing-title {
+    font-size: clamp(28px, 5vw, 40px);
+    font-weight: 900;
+    margin-bottom: 12px;
+    letter-spacing: -1px;
+  }
+
+  .pricing-sub {
+    color: var(--text-muted);
+    font-size: 16px;
+    margin-bottom: 40px;
+  }
+
+  .pricing-cards {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .price-card {
+    background: var(--bg-card);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: var(--radius);
+    padding: 32px 28px;
+    flex: 1;
+    min-width: 260px;
+    max-width: 320px;
+    text-align: left;
+    position: relative;
+  }
+
+  .price-card.popular {
+    border-color: var(--mint);
+    box-shadow: 0 0 40px rgba(0,212,170,0.1);
+  }
+
+  .popular-badge {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, var(--mint), var(--purple));
+    color: #0A0E1A;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 14px;
+    border-radius: 50px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  .price-card h3 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  .price-card .price {
+    font-size: 36px;
+    font-weight: 900;
+    margin: 12px 0 4px;
+  }
+
+  .price-card .price span {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text-muted);
+  }
+
+  .price-card .per-month {
+    font-size: 14px;
+    color: var(--mint);
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+
+  .price-card .save {
+    display: inline-block;
+    background: rgba(0,212,170,0.12);
+    color: var(--mint);
+    font-size: 12px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 6px;
+    margin-bottom: 16px;
+  }
+
+  .price-card ul {
+    list-style: none;
+    margin-top: 16px;
+  }
+
+  .price-card ul li {
+    font-size: 14px;
+    color: var(--text-muted);
+    padding: 5px 0;
+    padding-left: 22px;
+    position: relative;
+  }
+
+  .price-card ul li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--mint);
+    font-weight: 700;
+  }
+
+  /* ─── FIXI CHARACTER ─── */
+  .fixi-section {
+    padding: 80px 24px;
+    text-align: center;
+    position: relative;
+  }
+
+  .fixi-section::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(123,97,255,0.06) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+
+  .fixi-quote {
+    max-width: 500px;
+    margin: 24px auto 0;
+    font-size: 18px;
+    font-style: italic;
+    color: var(--text-muted);
+  }
+
+  /* ─── LEGAL PAGES ─── */
+  .legal {
+    padding: 120px 24px 80px;
+    max-width: 700px;
+    margin: 0 auto;
+    display: none;
+  }
+
+  .legal.active { display: block; }
+
+  .legal h1 {
+    font-size: 32px;
+    font-weight: 900;
+    margin-bottom: 8px;
+  }
+
+  .legal .legal-date {
+    color: var(--text-muted);
+    font-size: 14px;
+    margin-bottom: 36px;
+  }
+
+  .legal h2 {
+    font-size: 20px;
+    font-weight: 700;
+    margin: 32px 0 12px;
+    color: var(--mint);
+  }
+
+  .legal p, .legal li {
+    color: var(--text-muted);
+    font-size: 15px;
+    line-height: 1.7;
+    margin-bottom: 12px;
+  }
+
+  .legal ul {
+    padding-left: 20px;
+    margin-bottom: 16px;
+  }
+
+  .legal a {
+    color: var(--mint);
+    text-decoration: none;
+  }
+
+  .legal a:hover { text-decoration: underline; }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--mint);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 24px;
+  }
+
+  .back-link:hover { text-decoration: underline; }
+
+  /* ─── FOOTER ─── */
+  footer {
+    padding: 40px 24px;
+    text-align: center;
+    border-top: 1px solid rgba(255,255,255,0.04);
+  }
+
+  .footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+  }
+
+  .footer-links a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 13px;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: var(--mint); }
+
+  .footer-copy {
+    color: rgba(136,146,176,0.5);
+    font-size: 12px;
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 640px) {
+    .nav-links { gap: 16px; }
+    .nav-links a { font-size: 12px; }
+    .phone-frame { width: 240px; height: 500px; }
+    .pricing-cards { flex-direction: column; align-items: center; }
+    .price-card { max-width: 100%; }
+  }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .animate {
+    animation: fadeUp 0.7s ease-out forwards;
+    opacity: 0;
+  }
+
+  .delay-1 { animation-delay: 0.1s; }
+  .delay-2 { animation-delay: 0.2s; }
+  .delay-3 { animation-delay: 0.3s; }
+  .delay-4 { animation-delay: 0.4s; }
+  .delay-5 { animation-delay: 0.5s; }
+
+  /* Fixi SVG inline */
+  .fixi-svg { display: inline-block; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo" onclick="showHome()">
+    <svg viewBox="0 0 40 40" fill="none">
+      <rect width="40" height="40" rx="10" fill="#00D4AA"/>
+      <ellipse cx="20" cy="22" rx="10" ry="9" fill="#F4845F"/>
+      <ellipse cx="20" cy="24" rx="7" ry="6" fill="#FFF5E6"/>
+      <path d="M13 15L10 6L17 13Z" fill="#F4845F"/>
+      <path d="M27 15L30 6L23 13Z" fill="#F4845F"/>
+      <ellipse cx="20" cy="18" rx="10" ry="9" fill="#F4845F"/>
+      <ellipse cx="16.5" cy="17" rx="2.2" ry="2.5" fill="#fff"/>
+      <ellipse cx="23.5" cy="17" rx="2.2" ry="2.5" fill="#fff"/>
+      <ellipse cx="17.3" cy="16.5" rx="1.3" ry="1.6" fill="#2D1B4E"/>
+      <ellipse cx="24.3" cy="16.5" rx="1.3" ry="1.6" fill="#2D1B4E"/>
+      <circle cx="17.8" cy="15.5" r="0.6" fill="#fff"/>
+      <circle cx="24.8" cy="15.5" r="0.6" fill="#fff"/>
+      <ellipse cx="20" cy="20" rx="1.2" ry="0.8" fill="#2D1B4E"/>
+      <path d="M18 21.5Q20 23.5 22 21.5" stroke="#2D1B4E" stroke-width="0.7" fill="none" stroke-linecap="round"/>
+    </svg>
+    <span>Fixi</span>
+  </a>
+  <div class="nav-links">
+    <a href="#features" onclick="showHome()">Features</a>
+    <a href="#pricing" onclick="showHome()">Preise</a>
+    <a href="#" onclick="showPage('privacy')">Datenschutz</a>
+    <a href="#" onclick="showPage('terms')">AGB</a>
+  </div>
+</nav>
+
+<!-- ─── MAIN CONTENT ─── -->
+<div id="home">
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-fixi animate delay-1">
+    <svg width="120" height="130" viewBox="0 0 100 110" fill="none">
+      <g><path d="M20 78Q8 65 12 52Q18 42 28 48Q25 58 28 70Z" fill="#E8734A"/><path d="M12 52Q18 45 25 48Q22 50 21 54Z" fill="#FFF5E6" opacity="0.6"/></g>
+      <ellipse cx="50" cy="82" rx="22" ry="20" fill="#F4845F"/>
+      <ellipse cx="50" cy="86" rx="15" ry="14" fill="#FFF5E6"/>
+      <path d="M35 70Q50 75 65 70Q66 78 63 79Q50 81 37 79Q34 78 35 70Z" fill="#00D4AA"/>
+      <path d="M58 74Q60 83 59 90Q58 91 56 90Q56 83 55 75Z" fill="#00D4AA"/>
+      <ellipse cx="50" cy="50" rx="25" ry="22" fill="#F4845F"/>
+      <ellipse cx="50" cy="55" rx="19" ry="15" fill="#FABA6E" opacity="0.2"/>
+      <path d="M30 32L25 12L40 28Z" fill="#F4845F"/><path d="M31 31L27 16L38 28Z" fill="#FF9B7A"/>
+      <path d="M70 32L75 12L60 28Z" fill="#F4845F"/><path d="M69 31L73 16L62 28Z" fill="#FF9B7A"/>
+      <ellipse cx="41" cy="47" rx="5" ry="5.5" fill="#fff"/>
+      <ellipse cx="59" cy="47" rx="5" ry="5.5" fill="#fff"/>
+      <ellipse cx="42.5" cy="46.5" rx="3" ry="3.5" fill="#2D1B4E"/>
+      <ellipse cx="60.5" cy="46.5" rx="3" ry="3.5" fill="#2D1B4E"/>
+      <circle cx="43.5" cy="45" r="1.2" fill="#fff"/>
+      <circle cx="61.5" cy="45" r="1.2" fill="#fff"/>
+      <ellipse cx="50" cy="54" rx="2.5" ry="1.8" fill="#2D1B4E"/>
+      <path d="M46 57Q50 61 54 57" stroke="#2D1B4E" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+      <ellipse cx="36" cy="54" rx="4" ry="2.5" fill="#FF9B7A" opacity="0.5"/>
+      <ellipse cx="64" cy="54" rx="4" ry="2.5" fill="#FF9B7A" opacity="0.5"/>
+      <path d="M73 75Q78 65 80 58" stroke="#F4845F" stroke-width="6" stroke-linecap="round"/>
+      <circle cx="80" cy="56" r="4" fill="#F4845F"/>
+      <path d="M27 75Q22 70 18 64" stroke="#F4845F" stroke-width="6" stroke-linecap="round"/>
+      <ellipse cx="82" cy="200" rx="14" ry="8" fill="#F4845F" transform="scale(0.5) translate(36, -100)"/>
+      <ellipse cx="118" cy="200" rx="14" ry="8" fill="#F4845F" transform="scale(0.5) translate(-36, -100)"/>
+    </svg>
+  </div>
+  <h1 class="animate delay-2">
+    Werde <span class="gradient-text">schuldenfrei</span><br>mit Fixi
+  </h1>
+  <p class="animate delay-3">
+    Dein persönlicher Finanz-Fuchs. KI-Coach, Gamification und ein konkretes Datum wann du frei bist.
+  </p>
+  <a href="#" class="hero-cta animate delay-4">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+    Im App Store laden
+  </a>
+  <div class="hero-badge animate delay-5">
+    ✨ 7 Tage kostenlos testen · Keine Kreditkarte nötig
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features" id="features">
+  <h2 class="features-title">Was Fixi für dich tut</h2>
+  <p class="features-sub">Kein trockenes Tabellen-Tool. Ein Begleiter der an dich glaubt.</p>
+  <div class="features-grid">
+    <div class="feature-card">
+      <span class="feature-icon">📅</span>
+      <h3>Schuldenfrei-Datum</h3>
+      <p>Trag deine Schulden ein und Fixi zeigt dir sofort, wann du schuldenfrei sein kannst. Ein konkretes Datum.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">🔮</span>
+      <h3>Was-wäre-wenn Simulator</h3>
+      <p>Was passiert bei 50€ extra pro Monat? Fixi rechnet es live: Monate gespart, Zinsen gespart, neues Datum.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">🦊</span>
+      <h3>Fixi als dein Coach</h3>
+      <p>Frag Fixi alles – wo du sparen kannst, wie du mit Mahnungen umgehst, oder lass dich motivieren.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">🏆</span>
+      <h3>Gamification</h3>
+      <p>Badges, Level-Ups, Streak-Counter und Challenges. Fixi wächst mit dir – vom Starter bis zur Legende.</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">📊</span>
+      <h3>Wochen-Rückblicke</h3>
+      <p>Jeden Sonntag dein persönlicher Rückblick: Was hast du geschafft? Was kommt als nächstes?</p>
+    </div>
+    <div class="feature-card">
+      <span class="feature-icon">🔒</span>
+      <h3>Daten bleiben bei dir</h3>
+      <p>Alles auf deinem Gerät. Kein Zwang zur Cloud. Kein Verkauf deiner Daten. Versprochen.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="pricing">
+  <h2 class="pricing-title">Starte kostenlos</h2>
+  <p class="pricing-sub">7 Tage alles testen. Dann entscheide.</p>
+  <div class="pricing-cards">
+    <div class="price-card popular">
+      <div class="popular-badge">Beliebteste Option</div>
+      <h3>Jährlich</h3>
+      <div class="price">€39,99 <span>/Jahr</span></div>
+      <div class="per-month">= €3,33 pro Monat</div>
+      <div class="save">Spare 52%</div>
+      <ul>
+        <li>7 Tage gratis testen</li>
+        <li>KI-Coach "Frag Fixi"</li>
+        <li>Was-wäre-wenn Simulator</li>
+        <li>Volle Gamification</li>
+        <li>Detaillierte Statistiken</li>
+        <li>Wochen-Rückblicke</li>
+        <li>Jederzeit kündbar</li>
+      </ul>
+    </div>
+    <div class="price-card">
+      <h3>Monatlich</h3>
+      <div class="price">€6,99 <span>/Monat</span></div>
+      <div class="per-month">Flexibel & kündbar</div>
+      <ul>
+        <li>7 Tage gratis testen</li>
+        <li>KI-Coach "Frag Fixi"</li>
+        <li>Was-wäre-wenn Simulator</li>
+        <li>Volle Gamification</li>
+        <li>Detaillierte Statistiken</li>
+        <li>Wochen-Rückblicke</li>
+        <li>Jederzeit kündbar</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- FIXI QUOTE -->
+<section class="fixi-section">
+  <svg width="80" height="88" viewBox="0 0 100 110" fill="none">
+    <ellipse cx="50" cy="82" rx="22" ry="20" fill="#F4845F"/>
+    <ellipse cx="50" cy="86" rx="15" ry="14" fill="#FFF5E6"/>
+    <path d="M35 70Q50 75 65 70Q66 78 63 79Q50 81 37 79Q34 78 35 70Z" fill="#00D4AA"/>
+    <ellipse cx="50" cy="50" rx="25" ry="22" fill="#F4845F"/>
+    <path d="M30 32L25 12L40 28Z" fill="#F4845F"/>
+    <path d="M70 32L75 12L60 28Z" fill="#F4845F"/>
+    <path d="M36 47Q41 44 46 47" stroke="#2D1B4E" stroke-width="2" fill="none" stroke-linecap="round"/>
+    <path d="M54 47Q59 44 64 47" stroke="#2D1B4E" stroke-width="2" fill="none" stroke-linecap="round"/>
+    <ellipse cx="50" cy="54" rx="2.5" ry="1.8" fill="#2D1B4E"/>
+    <path d="M45 57Q50 62 55 57" stroke="#2D1B4E" stroke-width="1.3" fill="none" stroke-linecap="round"/>
+    <ellipse cx="36" cy="53" rx="4" ry="2.5" fill="#FF9B7A" opacity="0.5"/>
+    <ellipse cx="64" cy="53" rx="4" ry="2.5" fill="#FF9B7A" opacity="0.5"/>
+  </svg>
+  <p class="fixi-quote">"Schulden sind temporär. Deine Stärke ist permanent."<br>– Fixi 🦊</p>
+</section>
+
+</div>
+
+<!-- ─── PRIVACY POLICY ─── -->
+<div id="privacy" class="legal">
+  <a href="#" class="back-link" onclick="showHome()">← Zurück zur Startseite</a>
+  <h1>Datenschutzerklärung</h1>
+  <p class="legal-date">Stand: Februar 2025</p>
+
+  <h2>1. Verantwortlicher</h2>
+  <p>Verantwortlich für die Datenverarbeitung innerhalb der Fixi App ist:<br>
+  Kevin Kohls<br>
+  E-Mail: getfixi.app@gmail.com</p>
+
+  <h2>2. Welche Daten speichert Fixi?</h2>
+  <p>Fixi speichert folgende Daten lokal auf deinem Gerät:</p>
+  <ul>
+    <li>Schulden-Daten (Bezeichnung, Beträge, Zinssätze, Raten)</li>
+    <li>Zahlungshistorie</li>
+    <li>App-Nutzungsdaten (Streak, Level, Badges, Einstellungen)</li>
+    <li>Abend-Reflexionen (Stimmung, optional)</li>
+  </ul>
+  <p>Bei freiwilliger Account-Erstellung zusätzlich:</p>
+  <ul>
+    <li>E-Mail-Adresse</li>
+    <li>Name (optional)</li>
+    <li>Authentifizierungsdaten (Apple ID oder Google Account Referenz)</li>
+  </ul>
+
+  <h2>3. Wo werden die Daten gespeichert?</h2>
+  <p>Standardmäßig werden alle Daten ausschließlich lokal auf deinem Gerät gespeichert. Es erfolgt keine automatische Übertragung an Server oder Cloud-Dienste. Bei freiwilliger Account-Erstellung können Daten verschlüsselt in der Cloud gesichert werden (EU-Server, DSGVO-konform).</p>
+
+  <h2>4. Was wir NICHT tun</h2>
+  <ul>
+    <li>Wir verkaufen deine Daten nicht an Dritte</li>
+    <li>Wir nutzen deine Finanzdaten nicht für Werbezwecke</li>
+    <li>Wir teilen keine Daten ohne deine ausdrückliche Zustimmung</li>
+    <li>Wir speichern keine Bankverbindungen oder Kontodaten</li>
+  </ul>
+
+  <h2>5. Marketing-E-Mails</h2>
+  <p>Marketing-E-Mails werden ausschließlich mit deinem expliziten Opt-In versendet (separate Checkbox, nicht vorausgewählt). Du kannst dich jederzeit mit einem Klick abmelden. Wir versenden maximal eine E-Mail pro Woche.</p>
+
+  <h2>6. In-App Käufe</h2>
+  <p>Fixi Premium wird über Apple In-App Purchases abgewickelt. Die Zahlungsabwicklung erfolgt ausschließlich durch Apple. Fixi hat keinen Zugriff auf deine Zahlungsdaten.</p>
+
+  <h2>7. Deine Rechte (DSGVO)</h2>
+  <p>Du hast jederzeit das Recht auf:</p>
+  <ul>
+    <li>Auskunft über deine gespeicherten Daten</li>
+    <li>Berichtigung unrichtiger Daten</li>
+    <li>Löschung deiner Daten ("Recht auf Vergessenwerden")</li>
+    <li>Einschränkung der Verarbeitung</li>
+    <li>Datenübertragbarkeit (Export)</li>
+    <li>Widerruf erteilter Einwilligungen</li>
+    <li>Beschwerde bei einer Aufsichtsbehörde</li>
+  </ul>
+  <p>Die Löschung aller Daten ist direkt in der App unter Einstellungen → "Alle Daten löschen" möglich.</p>
+
+  <h2>8. Kontakt</h2>
+  <p>Bei Fragen zum Datenschutz wende dich an:<br>
+  getfixi.app@gmail.com</p>
+</div>
+
+<!-- ─── TERMS OF USE ─── -->
+<div id="terms" class="legal">
+  <a href="#" class="back-link" onclick="showHome()">← Zurück zur Startseite</a>
+  <h1>Nutzungsbedingungen</h1>
+  <p class="legal-date">Stand: Februar 2025</p>
+
+  <h2>1. Geltungsbereich</h2>
+  <p>Diese Nutzungsbedingungen gelten für die Nutzung der Fixi App ("App"), bereitgestellt von Kevin Kohls ("Anbieter"). Mit der Nutzung der App akzeptierst du diese Bedingungen.</p>
+
+  <h2>2. Leistungsbeschreibung</h2>
+  <p>Fixi ist ein Planungs- und Motivationstool für den persönlichen Schuldenabbau. Die App bietet Tilgungspläne, Simulationen, Gamification-Elemente und einen KI-basierten Coach. Fixi ist ausdrücklich keine Finanzberatung und ersetzt nicht die Beratung durch qualifizierte Finanzberater, Schuldenberater oder Rechtsanwälte.</p>
+
+  <h2>3. Keine Finanzberatung</h2>
+  <p>Alle Berechnungen, Empfehlungen und Tipps in der App sind Schätzungen und dienen ausschließlich der Orientierung. Der Anbieter übernimmt keine Haftung für finanzielle Entscheidungen die auf Basis der App-Inhalte getroffen werden. Bei ernsthaften finanziellen Problemen empfehlen wir die Kontaktaufnahme mit einer anerkannten Schuldnerberatung.</p>
+
+  <h2>4. Fixi Premium (In-App Käufe)</h2>
+  <ul>
+    <li>Fixi Premium ist als Auto-Renewable Subscription verfügbar</li>
+    <li>Preise: €6,99/Monat oder €39,99/Jahr</li>
+    <li>Kostenlose Testphase: 7 Tage</li>
+    <li>Die Zahlung wird über deine Apple ID abgerechnet</li>
+    <li>Das Abo verlängert sich automatisch, sofern nicht mindestens 24 Stunden vor Ablauf der aktuellen Periode gekündigt wird</li>
+    <li>Kündigung ist jederzeit in den Einstellungen deines Apple-Accounts möglich</li>
+    <li>Bei Kündigung bleibt der Zugang bis zum Ende der bezahlten Periode bestehen</li>
+  </ul>
+
+  <h2>5. Mindestalter</h2>
+  <p>Die Nutzung der App setzt ein Mindestalter von 18 Jahren voraus.</p>
+
+  <h2>6. Geistiges Eigentum</h2>
+  <p>Alle Inhalte der App – einschließlich des Fixi-Maskottchens, der Texte, Grafiken und des Designs – sind urheberrechtlich geschützt und Eigentum des Anbieters.</p>
+
+  <h2>7. Verfügbarkeit</h2>
+  <p>Der Anbieter bemüht sich um eine hohe Verfügbarkeit der App, kann jedoch keine ununterbrochene Verfügbarkeit garantieren. Wartungsarbeiten und Updates können zu vorübergehenden Einschränkungen führen.</p>
+
+  <h2>8. Haftungsbeschränkung</h2>
+  <p>Der Anbieter haftet nicht für Schäden, die durch die Nutzung der App entstehen, insbesondere nicht für finanzielle Verluste aufgrund von Berechnungsfehlern oder fehlerhaften Empfehlungen. Die Haftung für Vorsatz und grobe Fahrlässigkeit bleibt unberührt.</p>
+
+  <h2>9. Änderungen</h2>
+  <p>Der Anbieter behält sich vor, diese Nutzungsbedingungen jederzeit zu ändern. Über wesentliche Änderungen werden Nutzer innerhalb der App informiert.</p>
+
+  <h2>10. Anwendbares Recht</h2>
+  <p>Es gilt das Recht der Bundesrepublik Deutschland. Gerichtsstand ist der Sitz des Anbieters.</p>
+
+  <h2>11. Kontakt</h2>
+  <p>getfixi.app@gmail.com</p>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-links">
+    <a href="#" onclick="showHome()">Startseite</a>
+    <a href="#" onclick="showPage('privacy')">Datenschutz</a>
+    <a href="#" onclick="showPage('terms')">Nutzungsbedingungen</a>
+    <a href="mailto:getfixi.app@gmail.com">Kontakt</a>
+  </div>
+  <p class="footer-copy">&copy; 2025 Fixi. Alle Rechte vorbehalten. 🦊</p>
+</footer>
+
+<script>
+function showPage(page) {
+  document.getElementById('home').style.display = 'none';
+  document.getElementById('privacy').classList.remove('active');
+  document.getElementById('terms').classList.remove('active');
+  document.getElementById(page).classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function showHome() {
+  document.getElementById('home').style.display = 'block';
+  document.getElementById('privacy').classList.remove('active');
+  document.getElementById('terms').classList.remove('active');
+}
+</script>
+
+</body>
+</html>

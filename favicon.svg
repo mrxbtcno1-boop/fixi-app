@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- Rounded dark background -->
+  <rect width="32" height="32" rx="8" fill="#0A0E1A"/>
+  <!-- Mint accent bar top-left -->
+  <rect x="5" y="5" width="4" height="4" rx="1" fill="#00D4AA" opacity="0.6"/>
+  <!-- Bold F -->
+  <text x="16" y="23" font-family="Arial Black,Impact,sans-serif" font-weight="900" font-size="20" fill="#00D4AA" text-anchor="middle">F</text>
+</svg>

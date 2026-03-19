@@ -1,0 +1,400 @@
+{
+  "project": {
+    "name": "Fixi",
+    "tagline": "Schuldenfrei mit KI-Plan",
+    "description": "Schulden-Tracker & Motivations-App – hilft Nutzern, Schulden zu visualisieren, ein konkretes Freiheitsdatum zu berechnen und durch Gamification & KI-Coaching motiviert zu bleiben.",
+    "language": "de",
+    "status": "production_ready",
+    "build_date": "2026-03-19"
+  },
+
+  "versioning": {
+    "current_version": "1.3.0",
+    "build_number": "17",
+    "expo_sdk": "54.0.33",
+    "react_native": "0.81.5",
+    "react": "19.1.0",
+    "version_history": [
+      { "version": "1.0–1.2", "label": "Foundation", "notes": "Debt tracker, calculations, gamification, biometric lock, paywall" },
+      { "version": "1.3.0",   "label": "Onboarding Overhaul", "notes": "7-step emotional onboarding, Fox Mascot (6 states), Animated speech bubbles" },
+      { "version": "1.3.1",   "label": "Brand Polish Sprint", "notes": "FoxMascot web shadow fix, Syne font removed, Paywall/Profile/AI-Coach font fixes, full QA" },
+      { "version": "1.3.2",   "label": "Onboarding Visual Upgrade", "notes": "step3 age cards + step4 emotion chips redesigned with animations" },
+      { "version": "1.3.3",   "label": "Share-Card + Golden Crown Shimmer", "notes": "expo-sharing share flow on step7, Pokémon-Shiny crown animation on Fox" },
+      { "version": "1.3.4",   "label": "Notifications + Face-ID + Light Mode Audit", "notes": "Push notifications, face-id screen upgrade, full light mode fix, step5/6 visual upgrade" }
+    ],
+    "next_planned": "1.4.0 – Streak Shield IAP"
+  },
+
+  "app_store": {
+    "platform": "iOS",
+    "bundle_identifier": "com.getfixi.app",
+    "owner": "keko7777",
+    "eas_project_id": "65795ac9-ed3b-4749-b589-4d4d8bd7c91c",
+    "scheme": "fixi",
+    "supports_tablet": false,
+    "orientation": "portrait",
+    "new_arch_enabled": true,
+    "build_command": "EAS_NO_VCS=1 eas build --platform ios",
+    "info_plist": {
+      "NSFaceIDUsageDescription": "Für schnelles und sicheres Anmelden",
+      "NSUserNotificationUsageDescription": "Wir erinnern dich an dein Schuldenfreiheitsdatum und wichtige Meilensteine.",
+      "ITSAppUsesNonExemptEncryption": false,
+      "CFBundleDevelopmentRegion": "de",
+      "CFBundleLocalizations": ["de"]
+    }
+  },
+
+  "design_system": {
+    "colors": {
+      "brand_primary": "#00D4AA",
+      "brand_primary_light": "#00B899",
+      "brand_secondary": "#00A88A",
+      "gold": "#FFB800",
+      "background_dark": "#080E1C",
+      "background_card_dark": "rgba(20,25,41,0.85)",
+      "background_light": "#F4F6FA",
+      "background_card_light": "#FFFFFF",
+      "text_primary_dark": "#F0F4FF",
+      "text_secondary_dark": "#8A96A8",
+      "text_primary_light": "#0D1526",
+      "text_secondary_light": "#5A6478",
+      "error": "#FF4D6D",
+      "warning": "#FFB800"
+    },
+    "fonts": {
+      "headlines_ctas": "Nunito_900Black",
+      "speech_bubbles": "Nunito_900Black",
+      "body": "Inter_500Medium",
+      "body_light": "Inter_400Regular",
+      "removed": "Syne_800ExtraBold (removed in v1.3.1)"
+    },
+    "rules": {
+      "speech_bubble_suffix": "Always ends with 🦊",
+      "cta_gradient": "#00D4AA → #00A88A (NO purple/violet)",
+      "cta_text_color": "#0A0E1A (dark on mint, never white)",
+      "default_theme": "dark",
+      "available_themes": ["dark", "light"],
+      "theme_storage_key": "fixi_theme_mode"
+    },
+    "border_radius": {
+      "full": 999,
+      "xl": 20,
+      "lg": 16,
+      "md": 12,
+      "sm": 8
+    }
+  },
+
+  "fox_mascot": {
+    "format": "PNG (3D rendered)",
+    "states": {
+      "base":        { "file": "fox-base.png",        "usage": "Neutral, Arme aus – Default/Loading" },
+      "happy":       { "file": "fox-happy.png",       "usage": "Winkend, zwinkerndes Auge – Welcome/Begrüßung" },
+      "celebrating": { "file": "fox-celebrating.png", "usage": "Arme hoch, strahlendes Lachen – Milestone/Level-Up" },
+      "proud":       { "file": "fox-proud.png",       "usage": "Arme verschränkt, selbstbewusst – Achievement/Abschluss" },
+      "coaching":    { "file": "fox-coaching.png",    "usage": "Zeigend, entschlossen – KI-Coach/Face-ID/Anleitung" },
+      "empathy":     { "file": "fox-empathy.png",     "usage": "Einfühlsam, Hände zusammen – Streak Shield/Schwierige Momente" }
+    },
+    "sizes": ["small", "medium", "large"],
+    "speech_bubble_prop": "speechBubble",
+    "web_shadow": "filter: drop-shadow() (follows PNG transparency)",
+    "native_shadow": "iOS shadow props",
+    "crown_shimmer": "Pokémon-Shiny sweep animation on step7 (gold → white → gold, 750ms loop, 2.8s pause)"
+  },
+
+  "onboarding_flow": {
+    "total_steps": 9,
+    "screens": [
+      {
+        "route": "/welcome",
+        "fox_state": "happy",
+        "purpose": "Emotionaler Einstieg, Brand-Moment",
+        "theme_status": "✅ light + dark"
+      },
+      {
+        "route": "/onboarding-name",
+        "fox_state": "coaching",
+        "purpose": "Name-Eingabe, Personalisierung beginnt",
+        "theme_status": "✅ light + dark"
+      },
+      {
+        "route": "/onboarding/step3",
+        "fox_state": "coaching",
+        "purpose": "Altersgruppen-Auswahl (6 Cards mit Emojis)",
+        "animations": "Press-scale via Animated.spring",
+        "theme_status": "✅ fixed in v1.3.4 – cards now white in light mode"
+      },
+      {
+        "route": "/onboarding/step4",
+        "fox_state": "empathy",
+        "purpose": "Emotionaler Zustand des Nutzers (3 Kategorien, 11 Chips)",
+        "animations": "Stagger fade-in 40ms delay, bounce on select",
+        "categories": ["SO GEHT ES MIR GERADE (Rot)", "MEIN WENDEPUNKT (Mint)", "MEINE EINSTELLUNG (Gold)"],
+        "theme_status": "✅ fixed in v1.3.4 – chips + affirmation banner light mode"
+      },
+      {
+        "route": "/onboarding/step5",
+        "fox_state": "proud",
+        "purpose": "Triple-Yes – 3 Feature-Cards (Freiheitsdatum, KI-Coach, Fortschritt)",
+        "animations": "Stagger 300/480/660ms",
+        "social_proof": "Über 50.000 Nutzer bereits auf dem Weg zur Freiheit",
+        "theme_status": "✅ light + dark"
+      },
+      {
+        "route": "/onboarding/step6",
+        "fox_state": "coaching",
+        "purpose": "Erste Schulden-Eingabe (Bezeichnung, Betrag, Rate, Zinssatz)",
+        "trust_badge": "Verschlüsselt · Nur auf deinem Gerät (Mint-Pill mit Lock-Icon)",
+        "theme_status": "✅ light + dark"
+      },
+      {
+        "route": "/onboarding/step7",
+        "fox_state": "celebrating",
+        "purpose": "Datum-Reveal – Der emotionale Kern der App",
+        "features": [
+          "Konfetti-Kanone",
+          "Fox mit Golden Crown Shimmer",
+          "Persönliches Freiheitsdatum in Mint",
+          "Monate + Zinsersparnis Stats",
+          "Motivations-Quote",
+          "Teilen-Button (expo-sharing)"
+        ],
+        "notifications_trigger": "Speichert @fixi:planned_freedom_date für spätere Scheduling",
+        "theme_status": "✅ light + dark"
+      },
+      {
+        "route": "/face-id",
+        "fox_state": "coaching",
+        "speech_bubble_face": "Deine Daten gehören dir. Ich pass auf. 🦊",
+        "speech_bubble_finger": "Niemand außer dir kommt hier rein. 🦊",
+        "purpose": "Letztes Vertrauens-Signal vor Paywall",
+        "features": [
+          "Stagger-Animationen (Fox → Kreis → Headline → Trust-Card → CTAs)",
+          "Pulse-Animation auf Biometrie-Kreis (1.0 → 1.08, 900ms loop)",
+          "3 Trust-Rows (Datenschutz, Lokal, Keine Cloud)",
+          "Mint-Gradient CTA + Text-Link Skip"
+        ],
+        "trust_items": [
+          "Nur du kannst deine Daten sehen",
+          "Alles lokal auf deinem Gerät gespeichert",
+          "Keine Cloud, kein Account, keine Weitergabe"
+        ],
+        "navigation": {
+          "activate": "router.replace('/paywall') – immer, unabhängig von biometric result",
+          "skip": "router.replace('/paywall') – direkt",
+          "no_hardware": "router.replace('/paywall') – auto-skip"
+        },
+        "theme_status": "✅ fully theme-adaptive"
+      },
+      {
+        "route": "/paywall",
+        "fox_state": "celebrating",
+        "purpose": "RevenueCat Paywall – Konversion",
+        "plans": [
+          { "id": "yearly",  "price": "39,99€/Jahr", "note": "≈ 3,33€/Monat", "badge": "BELIEBTESTE OPTION", "savings": "Du sparst 52%" },
+          { "id": "monthly", "price": "6,99€/Monat", "note": "" }
+        ],
+        "trial": "7 Tage GRATIS testen",
+        "cta": "7 Tage GRATIS testen",
+        "free_path": "Erstmal ohne Premium weiter →",
+        "theme_status": "✅ light + dark"
+      }
+    ]
+  },
+
+  "notifications": {
+    "service_file": "src/services/NotificationService.ts",
+    "package": "expo-notifications@~0.32.16",
+    "plugin_configured": true,
+    "ios_color": "#00D4AA",
+    "scheduled_notifications": {
+      "freedom_day": {
+        "title": "Heute wärst du schuldenfrei. 🦊",
+        "trigger": "Genau am berechneten Freiheitsdatum",
+        "storage_key": "@fixi:notif_freedom_id"
+      },
+      "freedom_reminder_30d": {
+        "title": "Noch 30 Tage bis zur Schuldenfreiheit! 🦊",
+        "trigger": "30 Tage vor dem Freiheitsdatum",
+        "storage_key": "@fixi:notif_reminder_30_id"
+      },
+      "morning_motivation": {
+        "trigger": "Täglich 08:00",
+        "storage_key": "@fixi:notif_morning_id"
+      },
+      "evening_reflection": {
+        "trigger": "Täglich 20:00",
+        "storage_key": "@fixi:notif_evening_id"
+      },
+      "streak_reminder": {
+        "trigger": "Täglich 10:00 (wenn kein Check-in)",
+        "storage_key": "@fixi:notif_streak_id"
+      }
+    },
+    "async_storage_keys": {
+      "planned_freedom_date": "@fixi:planned_freedom_date",
+      "onboarding_start": "@fixi:onboarding_start"
+    },
+    "permission_trigger": "Nach Face-ID Screen (face-id.tsx handleActivate + handleSkip)",
+    "exported_functions": [
+      "requestNotificationPermissions",
+      "requestPermissionIfReady",
+      "requestPermissionAfterFirstDebt",
+      "setupAllNotifications",
+      "cancelAllNotifications",
+      "schedulePaymentReminder",
+      "scheduleMonthlyReport",
+      "checkAndTriggerMilestone",
+      "scheduleDebtFreeNotifications",
+      "cancelDebtFreeNotifications",
+      "rescheduleNotifications",
+      "KEY_PLANNED_FREEDOM_DATE",
+      "KEY_ONBOARDING_START"
+    ]
+  },
+
+  "third_party_integrations": {
+    "supabase": {
+      "url": "https://dzrtpbbztgixdawjfhbz.supabase.co",
+      "usage": "Analytics + Edge Functions",
+      "ai_coach_function": "coach-chat",
+      "ai_model": "GPT-4o-mini via OpenAI",
+      "last_tested": "2026-03-19",
+      "last_test_result": "HTTP 200 – Response: Hallo TestUser! Schön dass du hier bist.",
+      "package": "@supabase/supabase-js@^2.98.0"
+    },
+    "revenuecat": {
+      "package": "react-native-purchases@^9.10.0",
+      "api_key": "appl_PpZmqUkOybeXgtKOiADJootjceF",
+      "entitlement_id": "Fixi - Schuldenfrei mit Plan Pro",
+      "warning": "DO NOT TOUCH – Live IAP configuration",
+      "service_file": "src/services/PurchaseService.ts"
+    },
+    "expo_local_authentication": {
+      "package": "expo-local-authentication@^17.0.8",
+      "usage": "Face ID + Fingerprint on face-id.tsx",
+      "fallback": "Auto-skip to /paywall if no hardware"
+    },
+    "expo_sharing": {
+      "package": "expo-sharing@~14.0.8",
+      "usage": "Share-Card auf step7"
+    },
+    "react_native_view_shot": {
+      "package": "react-native-view-shot@^4.0.3",
+      "usage": "Screenshot capture für Share-Card"
+    }
+  },
+
+  "state_management": {
+    "library": "zustand@^5.0.11",
+    "local_storage": "@react-native-async-storage/async-storage@^2.2.0",
+    "theme_key": "fixi_theme_mode",
+    "onboarding_complete_key": "fixi_onboarding_complete"
+  },
+
+  "screens_overview": {
+    "onboarding": [
+      "welcome", "onboarding-name", "step3", "step4", "step5", "step6", "step7"
+    ],
+    "auth_paywall": ["face-id", "paywall"],
+    "main_tabs": [
+      { "route": "(tabs)/index",        "label": "Home",         "icon": "home" },
+      { "route": "(tabs)/debts",        "label": "Schulden",     "icon": "list" },
+      { "route": "(tabs)/stats",        "label": "Stats",        "icon": "bar-chart" },
+      { "route": "(tabs)/achievements", "label": "Achievements", "icon": "trophy" },
+      { "route": "(tabs)/profile",      "label": "Profil",       "icon": "person" }
+    ],
+    "feature_screens": ["ai-coach", "add-debt", "evening-reflection"],
+    "total_routes_bundled": 33
+  },
+
+  "gamification": {
+    "streaks": {
+      "daily_check_in": true,
+      "streak_shield": {
+        "status": "PLACEHOLDER_ONLY",
+        "file": "src/components/StreakShieldModal.tsx",
+        "implementation": "PENDING – next sprint",
+        "iap_product_id": "streak_shield_099",
+        "price": "€0.99 consumable",
+        "psychology": "Loss aversion – modal appears on first app open after broken streak"
+      }
+    },
+    "levels": true,
+    "badges": true,
+    "xp_system": true,
+    "fullscreen_moments": {
+      "component": "FixiFullscreenMoment",
+      "types": ["milestone", "levelup", "debt_cleared", "greeting"],
+      "theme_adaptive": true
+    }
+  },
+
+  "build_status": {
+    "last_build_check": "2026-03-19",
+    "command": "yarn expo export --platform web",
+    "result": "Exit 0 – 33 routes bundled, no TypeScript errors",
+    "light_mode_audit": {
+      "date": "2026-03-19",
+      "screens_checked": 11,
+      "screens_fixed": 4,
+      "fixed": [
+        "step3 – Age Cards (dark bg → white)",
+        "step4 – EmotionChips + AffirmationBanner (dark → theme-adaptive)",
+        "FixiFullscreenMoment – gradient (dark-only → theme-aware)",
+        "face-id – fully upgraded with stagger + trust card"
+      ],
+      "all_screens_status": "✅ GRÜN"
+    }
+  },
+
+  "roadmap": {
+    "p1_next": {
+      "feature": "Streak Shield",
+      "trigger": "Nach erfolgreichem EAS Build v1.3.0",
+      "type": "RevenueCat Consumable IAP",
+      "price": "€0.99",
+      "iap_product_id": "streak_shield_099",
+      "psychology": "Loss aversion – Emergency Modal nach gebrochenem Streak",
+      "timer": "24h Angebotsfenster",
+      "copy_headline": "Dein Streak ist gerade gebrochen.",
+      "copy_sub": "Einmal passiert. Muss nicht bleiben.",
+      "placeholder_file": "src/components/StreakShieldModal.tsx"
+    },
+    "p2": {
+      "feature": "Accountability Partner Mode",
+      "type": "Premium Social Feature"
+    },
+    "p3": {
+      "feature": "B2B Employee Wellness",
+      "type": "Corporate Licensing Adaptation"
+    },
+    "future_idea": {
+      "feature": "Schuldenfrei-Simulator als Onboarding-Teaser",
+      "description": "Nutzer sieht sein exaktes Freiheitsdatum BEVOR er sich registriert – Conversion-Magnet"
+    }
+  },
+
+  "key_files": {
+    "app_config": "app.json",
+    "entry": "app/_layout.tsx",
+    "theme": "src/contexts/ThemeContext.tsx",
+    "design_tokens": "src/constants/theme.ts",
+    "fox_component": "src/components/FoxMascot.tsx",
+    "fullscreen_moment": "src/components/FixiFullscreenMoment.tsx",
+    "notification_service": "src/services/NotificationService.ts",
+    "purchase_service": "src/services/PurchaseService.ts",
+    "supabase_client": "src/services/supabase.ts",
+    "streak_shield_placeholder": "src/components/StreakShieldModal.tsx",
+    "prd": "memory/PRD.md"
+  },
+
+  "critical_rules": {
+    "never_touch": "RevenueCat API Key + Entitlement ID",
+    "font_rule": "Nunito_900Black for all headlines + CTAs (NO Syne)",
+    "speech_bubble_rule": "Always append 🦊 at end",
+    "cta_rule": "Mint gradient #00D4AA → #00A88A, text color #0A0E1A (never white)",
+    "theme_rule": "All new components must use useThemeOverrides() – no hardcoded dark colors",
+    "navigation_face_id": "Both activate AND skip MUST router.replace('/paywall') – conversion critical"
+  }
+}

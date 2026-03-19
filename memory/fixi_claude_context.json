@@ -1,0 +1,573 @@
+{
+  "_meta": {
+    "purpose": "Complete Fixi App Context for Claude – Strategy, Tech, Design, Psychology, Revenue",
+    "created": "2026-03-14",
+    "version": "1.2.2",
+    "target": "20.000€/Monat ARR",
+    "language": "de",
+    "owner": "keko7777",
+    "bundle_id": "com.getfixi.app",
+    "eas_project_id": "65795ac9-ed3b-4749-b589-4d4d8bd7c91c"
+  },
+
+  "app": {
+    "name": "Fixi",
+    "tagline": "Schuldenfrei mit Plan",
+    "slug": "fixi",
+    "category": "Finance / Schuldenmanagement",
+    "platform": ["iOS", "Web"],
+    "language": "Deutsch (ausschließlich)",
+    "orientation": "portrait",
+    "current_version": "1.2.2",
+    "current_build": "16",
+    "app_store_status": "V1.2.2 in Build",
+    "model": "Freemium – 7-Tage Trial → Paid",
+    "pricing": {
+      "yearly": "39,99€/Jahr (= 3,33€/Monat)",
+      "monthly": "6,99€/Monat",
+      "savings_badge": "Du sparst 52%",
+      "trial": "7 Tage kostenlos",
+      "iap_provider": "RevenueCat – NIEMALS anfassen",
+      "entitlement_id": "Fixi - Schuldenfrei mit Plan Pro"
+    }
+  },
+
+  "tech_stack": {
+    "framework": "Expo (React Native) – Expo Router (file-based routing)",
+    "language": "TypeScript",
+    "state_management": "Zustand mit persist middleware (AsyncStorage)",
+    "navigation": "Expo Router v3 – Stack + Tabs",
+    "styling": "React Native StyleSheet + ThemeContext (Light/Dark)",
+    "animations": "react-native-reanimated + React Native Animated",
+    "fonts": {
+      "headlines_brand": "Syne_800ExtraBold (nur Onboarding/Marketing Headlines)",
+      "numbers_ui": "Nunito_900Black (alle Zahlen, Dashboard-Content, Card-Header)",
+      "body": "Inter (400/500/600/700)"
+    },
+    "third_party": {
+      "RevenueCat": "react-native-purchases – IAPs – NIEMALS ANFASSEN",
+      "Supabase": "Analytics + Edge Functions (OpenAI GPT-4o-mini KI-Coach)",
+      "expo_notifications": "Push Notifications",
+      "expo_font": "Google Fonts Loading",
+      "react_native_reanimated": "Streak Glow, Zinsschmerz Animationen",
+      "react_native_confetti_cannon": "Meilenstein-Konfetti (25/50/75/100%)",
+      "expo_linear_gradient": "Paywall CTA, Avatar, Badges"
+    },
+    "storage": "AsyncStorage (@react-native-async-storage/async-storage)",
+    "persistence_key": "fixi-storage (Zustand persist)"
+  },
+
+  "design_system": {
+    "philosophy": "Dark-first Premium Finance App. Glassmorphismus, Mint als Primary, keine generischen AI-Slop Farben (kein lila/violet auf weiß).",
+    "colors": {
+      "dark_mode": {
+        "bg_primary": "#080E1C",
+        "bg_secondary": "#0D1526",
+        "bg_tertiary": "#1A2540",
+        "text_primary": "#F0F4FF",
+        "text_secondary": "#8A9BBE",
+        "text_tertiary": "#5A6882",
+        "brand_primary": "#00D4AA",
+        "brand_secondary": "#00A88A",
+        "gold": "#FFB800",
+        "error_red": "#FF6B6B",
+        "info_blue": "#5B9CF6",
+        "purple": "#A855F7",
+        "glass_stroke": "rgba(255,255,255,0.08)",
+        "glass_fill": "rgba(20,25,41,0.85)"
+      },
+      "light_mode": {
+        "bg_primary": "#F4F6FA",
+        "bg_secondary": "#FFFFFF",
+        "bg_tertiary": "#E8ECF2",
+        "text_primary": "#0D1526",
+        "text_secondary": "#5A6478",
+        "text_tertiary": "#8892B0",
+        "brand_primary": "#00B899",
+        "brand_secondary": "#00A88A",
+        "gold": "#E5A500",
+        "error_red": "#E05555",
+        "paywall_bg": "#FFFFFF",
+        "interest_pain_bg": "#F4F6FA",
+        "yearly_card_bg": "#F0FDF9",
+        "glass_stroke": "rgba(0,0,0,0.08)"
+      }
+    },
+    "typography": {
+      "h1_marketing": "Syne_800ExtraBold – nur Welcome/Onboarding Screens",
+      "h1_ui": "Nunito_900Black – Dashboard Headlines, Zahlen",
+      "h2": "Inter_700Bold",
+      "body": "Inter_400Regular / Inter_500Medium",
+      "caption": "Inter_400Regular klein",
+      "number_sizes": {
+        "ring_percent": "42px Nunito_900Black",
+        "countdown_years": "44px Nunito_900Black",
+        "freedom_date": "26px Nunito_900Black #00D4AA",
+        "interest_pain": "72px Nunito_900Black",
+        "avatar_initial": "32px Nunito_900Black #FFFFFF",
+        "stat_values": "22-32px Nunito_900Black"
+      }
+    },
+    "spacing": {
+      "xs": 4, "sm": 8, "md": 12, "lg": 16, "xl": 20, "xxl": 24, "xxxl": 32
+    },
+    "border_radius": {
+      "sm": 8, "md": 12, "lg": 20, "xl": 32, "full": 9999
+    },
+    "avatar_gradients": [
+      ["#00D4AA", "#00A88A"],
+      ["#5B9CF6", "#3B7FE0"],
+      ["#FFB800", "#E5A500"],
+      ["#FF6B6B", "#E05555"],
+      ["#A855F7", "#8B33E8"],
+      ["#0D1526", "#1A2540"]
+    ],
+    "glassmorphism": "backdrop-filter: blur(12-24px) auf dunklen Cards",
+    "cta_gradient": ["#00D4AA", "#00A88A"],
+    "no_purple_in_cta": true,
+    "fox_mascot": "FoxMascot.tsx – zentrale Komponente, States: happy/excited/sad/proud/welcome/celebrating/tiny"
+  },
+
+  "screens": {
+    "onboarding": {
+      "welcome": {
+        "file": "app/welcome.tsx",
+        "headline": "Schulden fühlen sich endlos an.",
+        "subline": "Fixi zeigt dir wann es vorbei ist.",
+        "cta": "Meinen Plan erstellen",
+        "font": "Syne_800ExtraBold",
+        "flag": "hasSeenWelcomeScreen",
+        "psychology": "Empathy First – User fühlt sich verstanden, nicht verurteilt"
+      },
+      "name": {
+        "file": "app/onboarding-name.tsx",
+        "flag": "hasSeenNameScreen",
+        "psychology": "Personalisierung erhöht Completion Rate um 40%"
+      },
+      "steps_1_6": {
+        "files": "app/onboarding/step[1-6].tsx",
+        "step6_note": "Input-Container nutzt bgCardGlass + borderRadius für Glassmorphismus"
+      },
+      "debt_type": {
+        "file": "app/debt-type.tsx",
+        "types": ["Ratenkredit", "Dispositionskredit", "Kreditkarte", "Ratenkauf", "Sonstiges"],
+        "button_active_gradient": ["#00D4AA", "#00A88A"]
+      }
+    },
+    "dashboard": {
+      "file": "app/(tabs)/index.tsx",
+      "key_elements": {
+        "greeting": "Hey [Name] 👋 – Nunito_900Black",
+        "progress_ring": "SVG Ring mit % Tilgung – Nunito_900Black 42px",
+        "freedom_date": "14.05.2028 – Nunito_900Black 26px #00D4AA",
+        "countdown": "X Jahre Y Monate – Nunito_900Black 44px",
+        "streak": {
+          "7_days": "Goldener pulsierender Glow-Ring (2s loop)",
+          "30_days": "LEGENDE Label + breiter Glow"
+        },
+        "quick_actions": {
+          "colors": "Alle 4 auf #00D4AA einheitlich",
+          "icon_bg": "rgba(0,212,170,0.12)",
+          "items": ["Zahlung eintragen", "Simulator", "KI-Coach", "Statistiken"]
+        },
+        "fixi_sagt_card": {
+          "file": "src/components/FixiDailyCard.tsx",
+          "border": "borderWidth:1.5, borderColor:#00D4AA (kein Gradient)"
+        }
+      },
+      "trigger_flows": {
+        "simulator_sheet": "5s nach erstem Dashboard-Besuch (hasSeenSimulatorSheet)",
+        "interest_pain": "Nach Simulator-Dismiss → /interest-pain (hasSeenInterestPainScreen)",
+        "onboarding_paywall": "Nach Interesse-Pain → /paywall (hasSeenOnboardingPaywall)"
+      }
+    },
+    "interest_pain": {
+      "file": "app/interest-pain.tsx",
+      "purpose": "Höchster Conversion-Trigger vor Paywall – Emotionaler Schmerz-Moment",
+      "headline": "Das zahlst du jeden Monat an Zinsen.",
+      "number_color": { "dark": "#FF6B6B", "light": "#E05555" },
+      "mint_text": "Mit Fixi hörst du damit auf.",
+      "mint_color": { "dark": "#00D4AA", "light": "#00B899" },
+      "cta": "Meinen Plan aktivieren → /paywall",
+      "skip": "Vielleicht später → /paywall",
+      "flag": "hasSeenInterestPainScreen",
+      "only_for": "Free User, einmalig",
+      "animation": "4-Phasen: Zahl slide-in → Subtitle fade → Mint-Text → CTA",
+      "fallback": "monthlyInterest < 1€ → direkt zu /paywall",
+      "psychology": "Loss Aversion – User sieht KONKRETEN monatlichen Verlust, nicht abstrakten Schuldenstand"
+    },
+    "paywall": {
+      "file": "app/paywall.tsx",
+      "light_mode_bg": "#FFFFFF",
+      "dark_mode_bg": "#080E1C",
+      "features_icons": "Ionicons (kein Emoji)",
+      "features": [
+        "bulb-outline – KI-Sparplan von Fixi",
+        "trending-up – Was-wäre-wenn Simulator",
+        "trophy-outline – Volle Gamification",
+        "bar-chart-outline – Detaillierte Statistiken",
+        "calendar-outline – Wöchentliche Fortschritts-Berichte",
+        "chatbubble-ellipses-outline – Unbegrenzter KI-Coach"
+      ],
+      "yearly_card": {
+        "border": "#00D4AA 2px",
+        "bg_light": "#F0FDF9",
+        "bg_dark": "rgba(0,212,170,0.1)",
+        "savings_badge": "#00D4AA bg, weiß text, borderRadius 20px"
+      },
+      "cta": {
+        "text": "7 Tage GRATIS testen",
+        "gradient": ["#00D4AA", "#00A88A"],
+        "font": "Nunito_900Black 18px",
+        "height": 56,
+        "no_emoji": true,
+        "no_purple": true
+      },
+      "pulse_animation": "Animated.loop, 1.03x scale, 1s",
+      "no_countdown_timer": "User hat explizit abgelehnt – NIEMALS implementieren"
+    },
+    "achievements": {
+      "file": "app/(tabs)/achievements.tsx",
+      "locked_badges": {
+        "icon": "Ionicons lock-closed 28px grau",
+        "text": "Noch gesperrt",
+        "border": "dashed rgba(255,255,255,0.15) Dark / rgba(0,0,0,0.15) Light",
+        "opacity": 0.75,
+        "no_question_marks": true
+      },
+      "earned_badges": {
+        "glow": "boxShadow 0 0 0 2px rgba(0,212,170,0.4)",
+        "icon_size": 36
+      },
+      "stat_value_font": "Nunito_900Black"
+    },
+    "profile": {
+      "file": "app/(tabs)/profile.tsx",
+      "avatar_system": {
+        "type": "Initial-Kreis (kein Emoji-Grid)",
+        "size": "80px Durchmesser",
+        "gradient": "selectedAvatar index aus AVATAR_GRADIENTS[0-5]",
+        "initial": "Erster Buchstabe userName, Nunito_900Black 32px weiß",
+        "fallback": "FoxMascot tiny",
+        "change_trigger": "'Avatar ändern' Link (NICHT direktes Tippen auf Avatar)",
+        "color_picker": "Bottom Sheet Modal mit 6 Gradient-Optionen"
+      },
+      "premium_status": {
+        "icon": "Ionicons star #FFB800",
+        "text_color": "#00D4AA",
+        "no_emoji_checkbox": true
+      }
+    },
+    "stats": {
+      "file": "app/(tabs)/stats.tsx",
+      "number_font": "Nunito_900Black für overviewValue, activityValue, savingsAmount"
+    },
+    "simulator": { "file": "app/simulator.tsx" },
+    "ai_coach": { "file": "app/ai-coach.tsx", "model": "GPT-4o-mini via Supabase Edge Function" },
+    "record_payment": {
+      "file": "app/record-payment.tsx",
+      "confetti": {
+        "library": "react-native-confetti-cannon",
+        "milestones": [25, 50, 75, 100],
+        "colors": ["#00D4AA", "#FFB800", "#5B9CF6", "#FF6B6B", "#FFFFFF"],
+        "flags": ["fixi_confetti_25", "fixi_confetti_50", "fixi_confetti_75", "fixi_confetti_100"],
+        "duration": "2s, fadeOut:true",
+        "count": 180
+      }
+    }
+  },
+
+  "async_storage_flags": {
+    "total": 24,
+    "persistent": [
+      { "key": "fixi-storage", "desc": "Zustand Haupt-Persistenz (Schulden, Zahlungen, Streak, Badges, Level)" },
+      { "key": "fixi_anonymous_id", "desc": "Anonyme User-ID für Analytics – einmalig generiert" },
+      { "key": "fixi_theme_mode", "desc": "dark / light / system" },
+      { "key": "fixi_reminder_hour", "desc": "Nutzer-Präferenz für Erinnerungszeit" },
+      { "key": "fixi_trial_progress", "desc": "Trial-Tage-Tracking" },
+      { "key": "fixi_trial_status", "desc": "Trial aktiv/abgelaufen" },
+      { "key": "fixi_chat_history", "desc": "KI-Coach Chat-Verlauf" },
+      { "key": "fixi_coach_rate_limit", "desc": "Rate-Limit Zähler KI-Coach" }
+    ],
+    "one_time": [
+      { "key": "hasSeenWelcomeScreen", "trigger": "Welcome Screen (Emotion-First Onboarding)" },
+      { "key": "hasSeenNameScreen", "trigger": "Name-Eingabe Screen" },
+      { "key": "hasSeenCoachIntro", "trigger": "KI-Coach Auto-Open nach erster Schuld" },
+      { "key": "hasSeenSimulatorSheet", "trigger": "Simulator Bottom Sheet 5s nach Dashboard" },
+      { "key": "hasSeenOnboardingPaywall", "trigger": "Trial Paywall Modal nach Simulator" },
+      { "key": "hasSeenInterestPainScreen", "trigger": "Zinsschmerz Screen vor Paywall" },
+      { "key": "fixi_notification_dialog_shown", "trigger": "Notification Permission Dialog" },
+      { "key": "fixi_notification_permission_asked", "trigger": "OS Permission Request" },
+      { "key": "fixi_reengagement", "trigger": "Re-Engagement Notification" },
+      { "key": "fixi_confetti_25", "trigger": "Konfetti bei 25% Tilgung" },
+      { "key": "fixi_confetti_50", "trigger": "Konfetti bei 50% Tilgung" },
+      { "key": "fixi_confetti_75", "trigger": "Konfetti bei 75% Tilgung" },
+      { "key": "fixi_confetti_100", "trigger": "Konfetti bei 100% = Schuldenfreiheit" }
+    ],
+    "dynamic": [
+      { "key": "fixi_payment_reminder_{debtId}", "desc": "Zahlungserinnerung 2 Tage vorher, pro Schuld" },
+      { "key": "fixi_monthly_report_id", "desc": "Monatlicher Fortschrittsbericht (1. des Monats, 9 Uhr)" },
+      { "key": "fixi_milestone_{debtId}_{amount}", "desc": "Meilenstein-Notification bei 500€/100€/0€ verbleibend" }
+    ]
+  },
+
+  "zustand_store": {
+    "file": "src/store/useStore.ts",
+    "persist_key": "fixi-storage",
+    "critical_flag": "_hasHydrated – verhindert Race Conditions bei Navigation",
+    "key_fields": [
+      "debts: Debt[]",
+      "payments: Payment[]",
+      "userName: string",
+      "isPremium: boolean",
+      "trialStartDate: string | null",
+      "streakCount: number",
+      "badges: string[]",
+      "selectedAvatar: number (0-5, Avatar-Gradient-Index)",
+      "onboardingTotalDebt: number",
+      "onboardingMonthlyPayment: number",
+      "lastShownLevel: number",
+      "lastDailyGreeting: string"
+    ],
+    "partialize": "Excludes: _hasHydrated, setHasHydrated, alle Funktionen"
+  },
+
+  "user_journey": {
+    "first_time": [
+      "1. Welcome Screen → Emotion-First (Empathie, kein Urteil)",
+      "2. Name Screen → Personalisierung",
+      "3. Onboarding Steps 1-6 → Schulden erfassen",
+      "4. Dashboard → Schuldenfrei-Datum sehen (Aha-Moment)",
+      "5. +3s: First Achievement Overlay",
+      "6. KI-Coach Auto-Open → 'Du könntest X Monate früher fertig sein'",
+      "7. +5s: Simulator Bottom Sheet → 'Was wäre wenn?'",
+      "8. Simulator Dismiss → Zinsschmerz Screen → Konkreter Schmerzpunkt",
+      "9. Zinsschmerz CTA → Paywall → 7 Tage Trial"
+    ],
+    "returning_user": [
+      "Dashboard Check → Streak (Gamification)",
+      "Zahlung eintragen → Fortschritt sehen → Konfetti bei Meilenstein",
+      "Fixi sagt... → Tägliche Motivation",
+      "KI-Coach → Fragen stellen",
+      "Statistiken → Fortschritt analysieren"
+    ],
+    "conversion_funnel": {
+      "step1": "App Download",
+      "step2": "Onboarding Complete (Schulden erfasst)",
+      "step3": "Schuldenfrei-Datum gesehen (Aha-Moment)",
+      "step4": "Zinsschmerz Screen (Pain Point – größter Conversion-Trigger)",
+      "step5": "Paywall – 7 Tage Trial",
+      "step6": "Premium Purchase"
+    }
+  },
+
+  "psychology_layer": {
+    "core_principles": [
+      "LOSS AVERSION: Zinsschmerz Screen zeigt monatlichen Zinsverlust – nicht abstrakten Schuldenstand",
+      "PROGRESS BIAS: Ring-Fortschritt + Datum macht 'Ende' greifbar und real",
+      "IDENTITY SHIFT: 'Du bist nicht deine Schulden' – User wird Held der eigenen Geschichte",
+      "GAMIFICATION LOOP: Streak + Badges + Level + Konfetti = Dopamin-Loop für tägliche Nutzung",
+      "SOCIAL PROOF: '5,67 Millionen Deutsche haben Schulden' – Normalisierung ohne Stigma",
+      "RECIPROCITY: KI-Coach gibt KOSTENLOS Mehrwert → Nutzer fühlt sich verpflichtet zu kaufen",
+      "SUNK COST: Nach 7-Tage-Trial hat User Fortschritt angehäuft → kündigen fühlt sich falsch an",
+      "PERSONALIZATION: Name überall → 'Hey Max' → App fühlt sich persönlich an",
+      "SCARCITY FREE: Kein Countdown-Timer (User abgelehnt) – aber Trial-Ablauf wirkt als natürlicher Anker",
+      "EMOTIONAL PEAK: Konfetti bei Meilenstein + 100% Share Card → stärkster emotionaler Moment"
+    ],
+    "onboarding_psychology": {
+      "welcome": "Empathie vor Features – User muss sich verstanden fühlen",
+      "name": "Personalisierung erhöht Completion um 40% (Stanford-Studie)",
+      "simulator": "Kontrafaktisches Denken – 'Was wäre wenn' aktiviert Handlungsmotivation",
+      "interest_pain": "Loss Aversion (Kahneman) – Verlust wiegt 2x schwerer als Gewinn"
+    },
+    "retention_psychology": {
+      "streak": "Endowed Progress Effect – begonnene Reihe bricht man ungern",
+      "badges": "Achievement System – Sammeltrieb, Completion-Drive",
+      "konfetti": "Variable Reward Schedule – unvorhersehbare Belohnung stärkt Gewohnheit",
+      "daily_tip": "Commitment & Consistency – täglicher Check-in normalisiert Fixi als Habit"
+    }
+  },
+
+  "revenue_model": {
+    "current_arpu": "~3,33€/Monat (Jährlich) oder 6,99€/Monat (Monatlich)",
+    "target": "20.000€/Monat",
+    "math": {
+      "scenario_a": "6.000 aktive Premium User × 3,33€ = 19.980€/Monat (alle jährlich)",
+      "scenario_b": "2.860 aktive Premium User × 6,99€ = 19.992€/Monat (alle monatlich)",
+      "scenario_realistic": "3.500 jährlich + 500 monatlich = 11.655 + 3.495 = 15.150€",
+      "scenario_with_b2b": "2.500 Consumer Premium + 10 Firmen × 500€ = 8.325 + 5.000 = 13.325€",
+      "breakeven_user_base": "70.000 Downloads bei 5% Conversion Rate = 3.500 Premium"
+    },
+    "revenue_levers": {
+      "L1": "Conversion Rate optimieren (aktuell ~2-3% → Ziel: 8-12%)",
+      "L2": "Downloads skalieren (ASO + Content Marketing + Viral)",
+      "L3": "Churn reduzieren (Streak Shield, Re-Engagement Notifications)",
+      "L4": "ARPU erhöhen (B2B Lizenzen, Streak Shield IAP)",
+      "L5": "Viralität (Share Card bei 100% → kostenlose User-Acquisition)"
+    }
+  },
+
+  "growth_strategy": {
+    "aso": {
+      "primary_keywords": ["schulden app", "schuldenrechner", "kredit tilgen", "schuldenfrei", "finanzen app deutsch"],
+      "secondary_keywords": ["haushaltsbuch", "finanzplaner", "ratenkredit rechner", "schuldenplan"],
+      "screenshots_priority": [
+        "1. Schuldenfrei-Datum (Aha-Moment) – größter Hook",
+        "2. Zinsschmerz (75€/Monat – emotionaler Trigger)",
+        "3. Streak + Konfetti (Gamification)",
+        "4. KI-Coach (Premium Feature Showcase)",
+        "5. Statistiken (Professionell)"
+      ],
+      "app_store_description_hooks": [
+        "Wann bist du schuldenfrei? Fixi rechnet es dir aus.",
+        "Sieh wie viel Zinsen du jeden Monat verlierst",
+        "75% aller Nutzer haben nach 30 Tagen eine Zahlung eingetragen"
+      ]
+    },
+    "content_marketing": {
+      "tiktok_hooks": [
+        "POV: Du erfährst zum ersten Mal wie viel du an Zinsen zahlst",
+        "Ich hab meine Schulden in 3 Jahren abbezahlt – so geht das",
+        "Diese App hat mir gezeigt dass ich 847€/Jahr an Zinsen verliere"
+      ],
+      "instagram_content": [
+        "Bevor/Nachher: X Monate Schulden auf Y Monate mit Fixi",
+        "Dein monatlicher Zinsverlust (Rechner-Post)",
+        "Erster Schuldenfrei-Moment teilen (User Generated Content)"
+      ],
+      "youtube_seo": [
+        "Schulden abzahlen Strategie Deutschland",
+        "Dispositionskredit loswerden",
+        "Kreditkarte abzahlen Strategie"
+      ]
+    },
+    "partnerships": {
+      "influencer": "Finance-Creator in DE (z.B. Schuldnerberatung-Adjacent, Finanz-YouTuber)",
+      "b2b": "HR-Abteilungen, Gewerkschaften, Sozialberatungsstellen",
+      "media": "Bild, Spiegel Online, Focus Money – 'Schulden App Test'"
+    },
+    "viral_mechanics": {
+      "v1_3_share_card": "100%-Moment teilen → WhatsApp/Instagram → kostenlose Acquisition",
+      "social_proof_in_app": "'Bereits X Nutzer haben mit Fixi Schulden reduziert'",
+      "referral_program": "Friend bringt Friend → beide bekommen 1 Monat Premium gratis (V1.4)"
+    }
+  },
+
+  "competitive_analysis": {
+    "direct_competitors": {
+      "Debts_Payoff_Planner": "Englisch, kein DE-Markt, kein KI",
+      "Debt_Free": "Minimalistisch, kein Gamification, kein DE",
+      "Finanzguru": "Konto-Aggregator, kein Schulden-Fokus"
+    },
+    "fixi_advantages": [
+      "Einzige DE-Schulden-App mit emotionalem Onboarding + KI-Coach",
+      "Zinsschmerz-Screen – USP den kein Competitor hat",
+      "Gamification (Streak, Badges, Konfetti) – Habit Formation",
+      "FoxMascot als emotionaler Brand-Anker – nicht kalte Finanz-App",
+      "Syne + Nunito = Premium-Look der sich von Generic Finance-Apps unterscheidet"
+    ],
+    "positioning": "Nicht 'Haushaltsbuch' – sondern 'Dein persönlicher Schulden-Coach der dich motiviert'"
+  },
+
+  "roadmap": {
+    "current_v1_2_2": {
+      "status": "In Build",
+      "features": [
+        "Nunito_900Black für alle Zahlen",
+        "Paywall Redesign (Mint-only, Ionicons, kein Lila)",
+        "Badges Lock-System",
+        "Avatar Initial-System",
+        "Konfetti Meilensteine",
+        "Zinsschmerz Screen",
+        "Streak Glow 7/30 Tage",
+        "Deutsche Lokalisierung (CFBundleDevelopmentRegion: de)"
+      ]
+    },
+    "v1_3": {
+      "p1": {
+        "name": "Schuldenfreiheits-Moment Share-Card",
+        "revenue_impact": "VIRAL – kostenlose User-Acquisition",
+        "tech": "react-native-view-shot + expo-sharing",
+        "design": "Gradient Card, FoxMascot mit Krone, Name + Datum + gesparte Zinsen + Fixi Logo"
+      },
+      "p2": {
+        "name": "Streak Shield",
+        "revenue_impact": "Microtransaction ~0,99€ Consumable",
+        "psychology": "Sunk Cost + Endowed Progress – User zahlt um streak zu retten"
+      },
+      "p3": {
+        "name": "Accountability Partner Mode",
+        "revenue_impact": "Premium Retention + Viral via Einladungslink"
+      },
+      "p4": {
+        "name": "B2B Employee Wellness",
+        "revenue_impact": "10 Firmen × 500€ = 5.000€/Monat Zusatz",
+        "target": "HR-Abteilungen, Betriebsräte, Sozialberatung"
+      }
+    },
+    "v1_4_ideas": [
+      "Referral Program (1 Monat Premium für beide)",
+      "Widget (Home Screen – Fortschritt auf einen Blick)",
+      "Apple Watch Streak Widget",
+      "Schuldenfreiheits-Countdown Live Activity (iOS 16+)",
+      "Mehrere Profile (Familie)",
+      "Schuldenberatungs-Integration (Partner)"
+    ]
+  },
+
+  "critical_rules": {
+    "NEVER_TOUCH": [
+      "RevenueCat Konfiguration (react-native-purchases, entitlement_id, appl_PpZmqUkOybeXgtKOiADJootjceF)",
+      "CFBundleDevelopmentRegion: de",
+      "CFBundleLocalizations: ['de']"
+    ],
+    "BEFORE_EVERY_BUILD": [
+      "version erhöhen (z.B. 1.2.2 → 1.2.3)",
+      "buildNumber erhöhen (z.B. 16 → 17)"
+    ],
+    "DESIGN_RULES": [
+      "Kein Countdown-Timer auf Paywall (User hat explizit abgelehnt)",
+      "Kein Lila/Violett im CTA-Gradient",
+      "Syne_800ExtraBold NUR für Onboarding/Marketing Headlines",
+      "Nunito_900Black für ALLE Zahlen und UI-Content-Headlines",
+      "Alle Farben über ThemeContext.tsx – niemals hardcoded outside of specific exceptions",
+      "Light Mode UND Dark Mode nach jedem UI-Change prüfen",
+      "FoxMascot.tsx immer für Fox-Darstellungen – nie direkt die alten Fixi-Assets"
+    ],
+    "LANGUAGE": "Alle In-App Texte und User-Kommunikation DEUTSCH",
+    "DEV_LANGUAGE": "Emergent Agent kommuniziert auf DEUTSCH mit dem Owner"
+  },
+
+  "app_store_metadata": {
+    "bundle_id": "com.getfixi.app",
+    "owner": "keko7777",
+    "current_version": "1.2.2",
+    "build_number": "16",
+    "locale": "de-DE",
+    "category": "Finance",
+    "age_rating": "4+",
+    "release_notes_v1_2_2": [
+      "Neues Schriftbild: Alle Zahlen und Dashboardwerte in modernerem Nunito-Design",
+      "Paywall komplett überarbeitet: Klarer, minimalistischer, überzeugender",
+      "Badges: Gesperrte Inhalte zeigen jetzt elegante Schloss-Darstellung",
+      "Profil: Neues Avatar-System mit persönlichem Initialen-Kreis",
+      "Fortschritts-Konfetti: Bei 25%, 50%, 75% und 100% Tilgung erscheint eine Konfetti-Animation"
+    ]
+  },
+
+  "key_files_reference": {
+    "app_json": "frontend/app.json – Version + Build + Lokalisierung",
+    "theme": "frontend/src/contexts/ThemeContext.tsx – alle Design-Tokens",
+    "store": "frontend/src/store/useStore.ts – Zustand + Persist",
+    "dashboard": "frontend/app/(tabs)/index.tsx – Streak Glow + Simulator Trigger + Zinsschmerz Nav",
+    "paywall": "frontend/app/paywall.tsx – vollständig redesigned",
+    "interest_pain": "frontend/app/interest-pain.tsx – Zinsschmerz Screen",
+    "fox_mascot": "frontend/src/components/FoxMascot.tsx – zentrale Fox-Komponente",
+    "fixi_daily_card": "frontend/src/components/FixiDailyCard.tsx – Mint Border",
+    "record_payment": "frontend/app/record-payment.tsx – Konfetti Meilensteine",
+    "achievements": "frontend/app/(tabs)/achievements.tsx – Lock-System + Mint-Glow",
+    "profile": "frontend/app/(tabs)/profile.tsx – Avatar Initial System",
+    "layout": "frontend/app/_layout.tsx – Font Loading (Syne + Nunito + Inter), Route Registration",
+    "prd": "memory/PRD.md – vollständiges Produktdokument"
+  }
+}

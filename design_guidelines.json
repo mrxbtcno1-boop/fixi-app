@@ -1,0 +1,168 @@
+{
+  "project_name": "Fixi",
+  "design_philosophy": {
+    "persona": "E1: The Anti-AI Designer",
+    "tone": "Empathetic, Motivational, Premium, Non-Judgmental",
+    "core_principles": [
+      "Fusion over Imitation: Combine Fintech precision with Gaming dopamine.",
+      "Emotion First: Relieve stress, don't just show numbers.",
+      "Dark Mode Native: Designed for low-light anxiety reduction.",
+      "Privacy & Trust: Local data feel, secure visuals."
+    ],
+    "target_audience": "German speakers (25-45) needing debt relief motivation."
+  },
+  "typography": {
+    "font_family": {
+      "headings": "Outfit",
+      "body": "Plus Jakarta Sans",
+      "mono": "JetBrains Mono"
+    },
+    "installation_instructions": "Use expo-font to load 'Outfit' (Bold, SemiBold) and 'PlusJakartaSans' (Regular, Medium). Fallback to system sans-serif if loading fails.",
+    "scale": {
+      "display": { "size": 42, "lineHeight": 48, "weight": "700", "tracking": -1 },
+      "h1": { "size": 32, "lineHeight": 40, "weight": "700", "tracking": -0.5 },
+      "h2": { "size": 24, "lineHeight": 32, "weight": "600", "tracking": 0 },
+      "h3": { "size": 20, "lineHeight": 28, "weight": "600", "tracking": 0.5 },
+      "body_lg": { "size": 18, "lineHeight": 28, "weight": "400" },
+      "body_md": { "size": 16, "lineHeight": 24, "weight": "400" },
+      "caption": { "size": 13, "lineHeight": 18, "weight": "500", "uppercase": true, "tracking": 1.5 }
+    }
+  },
+  "colors": {
+    "palette": {
+      "background": {
+        "primary": "#0A0E1A",
+        "secondary": "#141929",
+        "tertiary": "#1F2942"
+      },
+      "brand": {
+        "primary": "#00D4AA",
+        "primary_dim": "rgba(0, 212, 170, 0.2)",
+        "secondary": "#7B61FF",
+        "secondary_dim": "rgba(123, 97, 255, 0.2)"
+      },
+      "functional": {
+        "success": "#00D4AA",
+        "warning": "#FFB06B",
+        "error": "#FF6B6B",
+        "info": "#6B9FFF"
+      },
+      "text": {
+        "primary": "#FFFFFF",
+        "secondary": "#94A3B8",
+        "tertiary": "#64748B",
+        "inverse": "#0A0E1A"
+      },
+      "glass": {
+        "stroke": "rgba(255, 255, 255, 0.1)",
+        "fill": "rgba(20, 25, 41, 0.7)"
+      }
+    },
+    "gradients": {
+      "primary_card": ["#141929", "#1F2942"],
+      "brand_glow": ["rgba(0, 212, 170, 0.15)", "rgba(123, 97, 255, 0.15)"],
+      "paywall_premium": ["#141929", "#2D2652"]
+    }
+  },
+  "spacing_and_layout": {
+    "system": "8px grid",
+    "border_radius": {
+      "sm": 8,
+      "md": 12,
+      "lg": 20,
+      "xl": 32,
+      "full": 9999
+    },
+    "padding": {
+      "screen_h": 20,
+      "card": 24,
+      "section_gap": 32
+    },
+    "grid_strategy": "Bento Grid: Mix of square (1x1) and tall/wide (2x1, 1x2) cards for visual interest."
+  },
+  "components": {
+    "buttons": {
+      "primary": {
+        "bg": "#00D4AA",
+        "text": "#0A0E1A",
+        "radius": 9999,
+        "height": 56,
+        "font_weight": "600",
+        "shadow": "0px 4px 12px rgba(0, 212, 170, 0.4)"
+      },
+      "secondary": {
+        "bg": "transparent",
+        "border": "#2D3B55",
+        "text": "#FFFFFF",
+        "radius": 9999,
+        "height": 56
+      }
+    },
+    "cards": {
+      "glass_panel": {
+        "bg": "rgba(20, 25, 41, 0.7)",
+        "blur": 20,
+        "border": "rgba(255, 255, 255, 0.08)",
+        "radius": 20
+      },
+      "solid": {
+        "bg": "#141929",
+        "radius": 20,
+        "shadow": "0px 8px 24px rgba(0, 0, 0, 0.2)"
+      }
+    },
+    "inputs": {
+      "bg": "#1F2942",
+      "text": "#FFFFFF",
+      "placeholder": "#64748B",
+      "radius": 12,
+      "height": 52,
+      "border_focus": "#00D4AA"
+    }
+  },
+  "visual_enhancers": {
+    "glassmorphism": "Use expo-blur (BlurView) with intensity 20-30 and a subtle white border (opacity 0.1).",
+    "gradients": "Avoid full screen gradients. Use mesh gradients or blurred orbs in the background.",
+    "icons": "Lucide-react-native or Phosphor Icons (Duotone). Color: #8892B0 or #00D4AA for active states.",
+    "confetti": "Use 'react-native-confetti-cannon' for milestones."
+  },
+  "image_assets": {
+    "onboarding_empathy": {
+      "url": "https://images.unsplash.com/photo-1606653458360-f61591a86124?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxODd8MHwxfHNlYXJjaHwxfHxwZXJzb24lMjBzdHJlc3NlZCUyMGxvb2tpbmclMjBhdCUyMGJpbGxzJTIwZGFyayUyMG1vb2R5fGVufDB8fHx8MTc3MTI3ODk3NHww&ixlib=rb-4.1.0&q=85",
+      "desc": "Stressed person looking at laptop - for 'Empathy' screen.",
+      "category": "photo"
+    },
+    "freedom_goal": {
+      "url": "https://images.unsplash.com/photo-1689555204752-ca13d86fb3ab?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Njl8MHwxfHNlYXJjaHw0fHxwZXJzb24lMjBoYXBweSUyMGZpbmFuY2lhbCUyMGZyZWVkb20lMjBzdW5zZXQlMjBzaWxob3VldHRlfGVufDB8fHx8MTc3MTI3ODk3NXww&ixlib=rb-4.1.0&q=85",
+      "desc": "Silhouette of happy people at sunset - for 'Freedom Date' reveal.",
+      "category": "photo"
+    },
+    "abstract_bg": {
+      "url": "https://images.unsplash.com/photo-1767642833959-0cac90824996?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1Nzd8MHwxfHNlYXJjaHwyfHwzZCUyMGFic3RyYWN0JTIwZ2VvbWV0cmljJTIwc2hhcGVzJTIwZGFyayUyMG5lb24lMjBiYWNrZ3JvdW5kfGVufDB8fHx8MTc3MTI3ODk3NXww&ixlib=rb-4.1.0&q=85",
+      "desc": "Geometric abstract neon - for Splash/Home BG.",
+      "category": "abstract"
+    },
+    "gamification_coin": {
+      "url": "https://images.unsplash.com/photo-1768337099525-1f2b4c872381?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NzR8MHwxfHNlYXJjaHwxfHxnb2xkJTIwY29pbiUyMDNkJTIwcmVuZGVyJTIwZGFyayUyMGJhY2tncm91bmR8ZW58MHx8fHwxNzcxMjc4OTc2fDA&ixlib=rb-4.1.0&q=85",
+      "desc": "Gold coin - for rewards/badges.",
+      "category": "3d_asset"
+    }
+  },
+  "instructions_to_main_agent": [
+    "INSTALLATION: Run 'npx expo install nativewind tailwindcss react-native-reanimated expo-blur expo-haptics expo-linear-gradient expo-font' immediately.",
+    "SETUP: Configure 'nativewind' for styling. If not possible, strictly follow the 'colors' and 'spacing' objects for StyleSheet.",
+    "LANGUAGE: All visible text MUST be in GERMAN (DE). Currency format: '1.250,00 €'.",
+    "THEME: Force Dark Mode. Do not rely on system theme switch. Set 'userInterfaceStyle': 'dark' in app.json.",
+    "NAVIGATION: Use 'expo-router' with a custom TabBar component. The TabBar should float (absolute position, bottom 20, margin-x 20, rounded-full, glass effect).",
+    "CHARTS: Use 'victory-native' for the Debt Overview and Progress charts. Style them with the Brand Primary (#00D4AA) and Secondary (#7B61FF) colors.",
+    "AI COACH: The chat interface should feel like a premium messaging app (WhatsApp/Telegram style) but with 'Fixi' branding. Bubbles: User (Brand Primary), AI (Card Secondary).",
+    "ONBOARDING: Use a PagerView or Horizontal FlatList. Animate elements with 'react-native-reanimated' (FadeInUp, SlideInRight)."
+  ],
+  "UNIVERSAL_GUIDELINES_FOR_MAIN_AGENT": [
+    "Avoid 'AI Slop': Do not use generic centered layouts everywhere. Use asymmetry.",
+    "Transitions: Use 'LayoutAnimation' or 'Reanimated' for all state changes. No instant jumps.",
+    "Touch Targets: All buttons/inputs must be at least 44x44px.",
+    "Safe Area: Always wrap screens in 'SafeAreaView' (from react-native-safe-area-context) but handle the background color properly to avoid white bars.",
+    "Testing: Add 'testID' to all interactive elements."
+  ]
+}

@@ -18,7 +18,7 @@ import { getRateLimitInfo, incrementMessageCount } from '../src/services/CoachRa
 import { checkPremiumStatus } from '../src/services/PurchaseService';
 import { monthsToPayoff } from '../src/utils/calculations';
 
-const FOX_COACHING = require('../assets/images/fox-coaching.png');
+const FOX_THINKING = require('../assets/images/fox-thinking.png');
 
 const SUPABASE_COACH_URL = 'https://dzrtpbbztgixdawjfhbz.supabase.co/functions/v1/coach-chat';
 const CHAT_STORAGE_KEY = 'fixi_chat_history';
@@ -308,7 +308,7 @@ export default function AiCoachScreen() {
       <View style={[styles.messageBubbleWrap, isUser ? styles.userWrap : styles.assistantWrap]}>
         {!isUser && (
           <View style={styles.fixiAvatar} testID="fixi-avatar">
-            <Image source={FOX_COACHING} style={styles.fixiAvatarImg} resizeMode="contain" />
+            <Image source={FOX_THINKING} style={styles.fixiAvatarImg} resizeMode="contain" />
           </View>
         )}
         <View style={[styles.bubble, isUser ? styles.userBubble : [styles.assistantBubble, { backgroundColor: t.isDark ? '#1A2540' : '#E8FDF8' }], item.isError && styles.errorBubble]}>
@@ -331,7 +331,7 @@ export default function AiCoachScreen() {
 
   const TypingIndicator = () => (
     <View style={[styles.messageBubbleWrap, styles.assistantWrap]}>
-      <View style={styles.fixiAvatar}><Image source={FOX_COACHING} style={styles.fixiAvatarImg} resizeMode="contain" /></View>
+      <View style={styles.fixiAvatar}><Image source={FOX_THINKING} style={styles.fixiAvatarImg} resizeMode="contain" /></View>
       <View style={[styles.bubble, styles.assistantBubble, styles.typingBubble]}>
         {[dot1, dot2, dot3].map((dot, i) => (
           <Animated.View key={i} style={[styles.typingDot, { transform: [{ translateY: dot.interpolate({ inputRange: [0, 1], outputRange: [0, -6] }) }] }]} />
@@ -353,7 +353,7 @@ export default function AiCoachScreen() {
               {/* Fox coaching avatar in header */}
               <View style={styles.headerFoxWrap}>
                 <Image
-                  source={FOX_COACHING}
+                  source={FOX_THINKING}
                   style={styles.headerFoxImg}
                   resizeMode="contain"
                 />

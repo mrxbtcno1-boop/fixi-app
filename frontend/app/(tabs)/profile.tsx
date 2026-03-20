@@ -320,7 +320,7 @@ export default function ProfileScreen() {
           <Text style={styles.resetBtnText}>Alle Daten zur{'ü'}cksetzen</Text>
         </TouchableOpacity>
 
-        <Text style={styles.version}>{'\u00A9'} 2026 Fixi App v1.3.3</Text>
+        <Text style={styles.version}>{'\u00A9'} 2026 Fixi App v1.3.4</Text>
       </ScrollView>
 
       {/* Share Card Modal */}

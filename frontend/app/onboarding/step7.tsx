@@ -58,8 +58,10 @@ export default function OnboardingStep7() {
   const quoteOpacity = useRef(new Animated.Value(0)).current;
   const brandOpacity = useRef(new Animated.Value(0)).current;
 
-  // Crown shimmer sweep
-  const shimmerX = useRef(new Animated.Value(-CROWN_WIDTH * 2)).current;
+  // Crown shimmer sweep – start fully off-screen to the left (right edge must be < 0)
+  // crownWindow=76px, gradient width=CROWN_WIDTH*5=380, marginLeft=-76
+  // right_edge = translateX - 76 + 380 = translateX + 304 → need translateX < -304
+  const shimmerX = useRef(new Animated.Value(-CROWN_WIDTH * 5)).current;
 
   const payoffInfo = useMemo(() => {
     if (debts.length > 0) {
@@ -129,9 +131,9 @@ export default function OnboardingStep7() {
             duration: 750,
             useNativeDriver: true,
           }),
-          // instant reset (no visible jump inside the overflow:hidden window)
+          // instant reset far off-screen (no visible jump)
           Animated.timing(shimmerX, {
-            toValue: -CROWN_WIDTH * 2,
+            toValue: -CROWN_WIDTH * 5,
             duration: 0,
             useNativeDriver: true,
           }),

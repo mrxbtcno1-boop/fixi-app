@@ -26,8 +26,8 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/icon.png",
-        "backgroundColor": "#080E1C"
+        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "backgroundColor": "#00D4AA"
       }
     },
     "web": {
@@ -45,8 +45,8 @@
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/splash-icon.png",
-          "imageWidth": 200,
+          "image": "./assets/images/fox-base.png",
+          "imageWidth": 220,
           "resizeMode": "contain",
           "backgroundColor": "#0A0E1A"
         }

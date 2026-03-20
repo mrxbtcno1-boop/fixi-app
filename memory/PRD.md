@@ -4,7 +4,7 @@
 "Schulden-Tracker & Motivations-App" – Eine mobile Finanz-App die Nutzern hilft, ihre Schulden zu visualisieren, ein konkretes Freiheitsdatum zu berechnen, und durch Gamification & KI-Coaching motiviert zu bleiben.
 
 ## App Version
-- Current: v1.3.0 (Build 17)
+- Current: v1.3.2 (Build 17)
 - Platform: Expo (React Native) – iOS + Android + Web
 
 ## Target Users
@@ -90,7 +90,21 @@
 - **EAS Build Vorbereitung (P2):** Version 1.3.0, BuildNumber 17, CFBundleDevelopmentRegion: "de", CFBundleLocalizations: ["de"], NSUserNotificationUsageDescription für iOS Notifications.
 - **Build-Status:** yarn expo export --platform web ✅ Exit 0, alle 33 Routen gebundelt, keine TypeScript-Fehler.
 
-### Onboarding Screen Upgrade V1.3.2 (2026-03-19)
+### V1.3.2: Fox Evolution + Branding Sprint (2026-02-21)
+- **New Fox Assets (12 total):** fox-starter, fox-fighter, fox-warrior, fox-champion, fox-excited, fox-thinking integrated
+- **Central Evolution Helper:** `getCurrentEvoFox()` in `FixiAccessories.ts` → consistent evolution stage on Dashboard + Achievements
+- **Onboarding Storytelling:** Re-mapped all fox states for emotional impact (welcome, step5, paywall)
+- **AI Coach Avatar:** Replaced with `fox-thinking.png`
+- **New App Icon:** Crowned fox on mint background (`icon.png`, `adaptive-icon.png`, `favicon.png`)
+- **New Splash Screen:** `fox-base.png` as splash image
+- **face-id.tsx Overhaul:** Full redesign with animations and trust-building copy
+- **Bug Fixes:** Keyboard overlap on onboarding-name, text-wrapping on dashboard quick actions
+- **Light Mode Audit:** All screens verified in both modes (step3, step4, FixiFullscreenMoment)
+- **Git Repo Recovery:** Re-initialized after pod failure, force-pushed, .gitignore added
+- **Version Bump:** `app.json`, `profile.tsx`, `fixi_project_metadata.json` → v1.3.2
+- **Build Status:** `yarn expo export --platform web` ✅ Exit 0, 33 routes bundled
+
+### Onboarding Screen Upgrade V1.3.2-legacy (2026-03-19)
 - **step3.tsx (Alter-Auswahl):** Kompaktere Cards (paddingVertical 16), Emoji 32px, Nunito_900Black 19px, Mint-Border + Tint, Press-Animation (scale 0.97) via Animated.spring
 - **step4.tsx (Emotionen):** Staggered Chip Fade-In (40ms delay), farbkodierte Kategorie-Akzentlinien, Bounce-Animation bei Selektion, Glassmorphism Affirmations-Banner
 

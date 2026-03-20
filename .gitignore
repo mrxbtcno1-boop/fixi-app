@@ -55,3 +55,13 @@ app-example
 # Environment files
 *.env
 *.env.*
+
+# Old root-level Expo artifacts (project lives in /frontend)
+app.json
+babel.config.js
+metro.config.js
+eslint.config.js
+tsconfig.json
+eas.json
+package.json
+package-lock.json

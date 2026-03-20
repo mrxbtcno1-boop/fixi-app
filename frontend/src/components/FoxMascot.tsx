@@ -1,16 +1,16 @@
 /**
- * FoxMascot v3 – Fixi Official Brand Characters
+ * FoxMascot v4 – Fixi Official Brand Characters
  *
  * State → Image mapping:
- *   celebrating / excited  → fox-celebrating.png (Arme hoch, strahlendes Lachen)
- *   happy / welcome        → fox-happy.png (winkend, zwinkerndes Auge)
- *   proud / strong         → fox-proud.png (Arme verschränkt, selbstbewusst)
- *   coaching / motivated   → fox-coaching.png (zeigend, entschlossen)
- *   empathy / sad / worried→ fox-empathy.png (einfühlsam, Hände zusammen)
- *   default / base         → fox-base.png (neutral, Arme aus)
- *   tiny                   → icon.png (Fuchskopf-Logo, rund)
- *
- * Props-Kompatibilität zu v1/v2 ist vollständig erhalten.
+ *   celebrating              → fox-celebrating.png (Arme hoch, strahlendes Lachen – ACHIEVEMENT)
+ *   excited                  → fox-excited.png    (springend, geballte Fäuste, Mint-Burst – ENERGIE)
+ *   happy / welcome          → fox-happy.png      (winkend, zwinkerndes Auge – BEGRÜSSUNG)
+ *   proud / strong           → fox-proud.png      (Arme verschränkt, selbstbewusst – PITCH)
+ *   coaching / motivated     → fox-coaching.png   (zeigend, entschlossen – ANLEITUNG)
+ *   empathy / sad / worried  → fox-empathy.png    (einfühlsam, Hände zusammen – VERSTÄNDNIS)
+ *   thinking / sleeping      → fox-thinking.png   (Kinn auf Faust, fokussiert – BERECHNUNG)
+ *   default / base           → fox-base.png       (neutral, Arme aus)
+ *   tiny                     → icon.png           (Fuchskopf-Logo, rund)
  */
 import { useRef, useEffect } from 'react';
 import {
@@ -60,16 +60,18 @@ const IMAGES = {
   base:        require('../../assets/images/fox-base.png'),
   happy:       require('../../assets/images/fox-happy.png'),
   celebrating: require('../../assets/images/fox-celebrating.png'),
+  excited:     require('../../assets/images/fox-excited.png'),
   coaching:    require('../../assets/images/fox-coaching.png'),
   empathy:     require('../../assets/images/fox-empathy.png'),
   proud:       require('../../assets/images/fox-proud.png'),
-  icon:        require('../../assets/images/icon.png'),  // 3D head, for tiny
+  thinking:    require('../../assets/images/fox-thinking.png'),
+  icon:        require('../../assets/images/icon.png'),
 };
 
 // ── State → Image Mapping ─────────────────────────────────────────────────────
 const STATE_IMAGE: Record<FixiState, keyof typeof IMAGES> = {
   celebrating: 'celebrating',
-  excited:     'celebrating',
+  excited:     'excited',
   happy:       'happy',
   welcome:     'happy',
   proud:       'proud',
@@ -79,8 +81,8 @@ const STATE_IMAGE: Record<FixiState, keyof typeof IMAGES> = {
   empathy:     'empathy',
   sad:         'empathy',
   worried:     'empathy',
-  thinking:    'base',
-  sleeping:    'base',
+  thinking:    'thinking',
+  sleeping:    'thinking',
 };
 
 // ── Size Mapping ──────────────────────────────────────────────────────────────
@@ -94,12 +96,13 @@ const SIZES: Record<NonNullable<FoxMascotProps['size']>, number> = {
 // ── Premium Glow Colors ───────────────────────────────────────────────────────
 const GLOW: Partial<Record<FixiState, string>> = {
   celebrating: '#00D4AA',
-  excited:     '#FF8C42',
+  excited:     '#00D4AA',   // Mint-Burst passend zum Asset
   happy:       '#00D4AA',
   proud:       '#FFB800',
   strong:      '#FFB800',
   motivated:   '#00D4AA',
   empathy:     '#A78BFA',
+  thinking:    '#FFB800',   // Goldenes Denk-Leuchten
 };
 
 // ─────────────────────────────────────────────────────────────────────────────

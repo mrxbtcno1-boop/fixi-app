@@ -87,7 +87,7 @@ export default function OnboardingStep5() {
           {/* Header */}
           <Animated.View style={{ opacity: headerAnim }}>
             <FoxMascot
-              state="motivated"
+              state="excited"
               size="small"
               speechBubble={`${userName || 'Hey'}, hier ist was ich für dich tun kann. 🦊`}
             />

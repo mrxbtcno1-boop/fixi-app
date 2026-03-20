@@ -95,7 +95,7 @@ export default function WelcomeScreen() {
                 { transform: [{ scale: 1.22 }, { translateY: bobbingAnim }] },
               ]}
             >
-              <FoxMascot state="celebrating" size="large" animated={false} />
+              <FoxMascot state="happy" size="large" animated={false} />
             </Animated.View>
 
             {/* Typing speech bubble */}

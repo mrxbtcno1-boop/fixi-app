@@ -79,7 +79,7 @@ export default function OnboardingStep6() {
           <ScrollView style={styles.scroll} contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
             {/* Mascot – medium */}
             <FoxMascot
-              state="motivated"
+              state="coaching"
               size="medium"
               speechBubble={`Fast geschafft, ${userName || 'du'}! Eine letzte Info – dann berechne ich alles. 🦊`}
             />

@@ -228,6 +228,7 @@ export default function OnboardingStep7() {
                   width: CROWN_WIDTH * 5,
                   height: CROWN_HEIGHT,
                   marginLeft: -CROWN_WIDTH,
+                  backgroundColor: 'transparent',
                 }}
               >
                 <LinearGradient
@@ -242,7 +243,7 @@ export default function OnboardingStep7() {
                   ]}
                   start={{ x: 0, y: 0.5 }}
                   end={{ x: 1, y: 0.5 }}
-                  style={{ flex: 1 }}
+                  style={{ flex: 1, backgroundColor: 'transparent' }}
                 />
               </Animated.View>
             </View>

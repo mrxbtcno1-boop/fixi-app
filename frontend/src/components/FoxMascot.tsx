@@ -304,6 +304,7 @@ export function FoxMascot({
 const styles = StyleSheet.create({
   wrapper: {
     alignItems: 'center',
+    backgroundColor: 'transparent',
   },
   bubble: {
     paddingHorizontal: 14,

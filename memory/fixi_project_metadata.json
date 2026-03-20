@@ -347,7 +347,7 @@
     "last_build_check": "2026-03-20",
     "command": "yarn expo export --platform web",
     "result": "Exit 0 ✅ – keine TypeScript-Fehler",
-    "last_commit": "V1.3.7 - fox-thinking im KI-Coach",
+    "last_commit": "V1.3.1 - Neues App Icon (Mint+Krone), adaptive-icon korrekt verlinkt, splash=fox-base.png",
     "last_push": "2026-03-20 → conflict_210226_0044"
   },
 

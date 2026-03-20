@@ -9,21 +9,15 @@
   },
 
   "versioning": {
-    "current_version": "1.3.0",
-    "build_number": "17",
+    "current_version": "1.3.1",
+    "build_number": "18",
     "expo_sdk": "54.0.33",
     "react_native": "0.81.5",
     "react": "19.1.0",
     "version_history": [
       { "version": "1.0–1.2", "label": "Foundation", "notes": "Debt tracker, calculations, gamification, biometric lock, paywall" },
-      { "version": "1.3.0",   "label": "Onboarding Overhaul", "notes": "7-step emotional onboarding, Fox Mascot (6 states), Animated speech bubbles" },
-      { "version": "1.3.1",   "label": "Brand Polish Sprint", "notes": "FoxMascot web shadow fix, Syne font removed, Paywall/Profile/AI-Coach font fixes, full QA" },
-      { "version": "1.3.2",   "label": "Onboarding Visual Upgrade", "notes": "step3 age cards + step4 emotion chips redesigned with animations" },
-      { "version": "1.3.3",   "label": "Share-Card + Golden Crown Shimmer", "notes": "expo-sharing share flow on step7, Pokémon-Shiny crown animation on Fox" },
-      { "version": "1.3.4",   "label": "Notifications + Face-ID + Light Mode Audit", "notes": "Push notifications, face-id screen upgrade (3 Trust-Rows, Pulse, Stagger), full light mode audit (step3/step4/FixiFullscreenMoment fixed)" },
-      { "version": "1.3.5",   "label": "Fox Evolution System", "notes": "4 Evolution-Images (starter/fighter/warrior/champion) integriert in Achievements Hero + Row + Dashboard. getCurrentEvoFox() zentraler Helper. Quick-Action Text-Wrapping fix. KeyboardAvoidingView + ScrollView fix für onboarding-name." },
-      { "version": "1.3.6",   "label": "Fox State Mapping komplett", "notes": "2 neue Fox-Assets (excited/thinking). Fox-States korrigiert: welcome=happy, step5=excited, step6=coaching, paywall=excited (war Fallback auf base). fox-thinking als neuer State registriert mit goldenem Glow." },
-      { "version": "1.3.7",   "label": "fox-thinking im KI-Coach", "notes": "KI-Coach Header-Avatar und Chat-Bubble-Avatar von fox-coaching → fox-thinking. Vermittelt Intelligenz und Analyse statt Direktive." }
+      { "version": "1.3.0",   "label": "Onboarding Overhaul", "notes": "7-step emotional onboarding, Fox Mascot, Animated speech bubbles, Share-Card, Crown Shimmer" },
+      { "version": "1.3.1",   "label": "Current Release", "notes": "Push Notifications, Face-ID Upgrade, Light Mode Audit, Fox Evolution System (4 Evolution-Images), Fox State Mapping komplett (excited/thinking neu), KI-Coach fox-thinking, Quick-Action fix, KeyboardAvoidingView fix" }
     ],
     "next_planned": "1.4.0 – Streak Shield IAP",
     "git_branch": "conflict_210226_0044",

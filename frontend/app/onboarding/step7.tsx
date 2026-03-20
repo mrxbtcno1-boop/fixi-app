@@ -210,13 +210,6 @@ export default function OnboardingStep7() {
           colors={['#00D4AA', '#FFB800', '#FF6B6B', '#FFB06B', '#6B9FFF', '#FFFFFF']}
         />
 
-        {/* Progress – all active */}
-        <View style={styles.progressRow}>
-          {Array.from({ length: TOTAL_STEPS }).map((_, i) => (
-            <View key={i} style={[styles.dot, styles.dotActive]} />
-          ))}
-        </View>
-
         {/* ── Capturable content area ─────────────────────────────────────────── */}
         <Animated.View
           ref={contentRef as any}
@@ -364,15 +357,6 @@ export default function OnboardingStep7() {
 
 const styles = StyleSheet.create({
   safe: { flex: 1 },
-  progressRow: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    gap: 8,
-    paddingTop: 16,
-  },
-  dot: { width: 8, height: 8, borderRadius: 4 },
-  dotActive: { width: 24, backgroundColor: '#00D4AA' },
-
   // ── Capturable content ───────────────────────────────────────────────────
   content: {
     flex: 1,

@@ -58,10 +58,17 @@ export default function OnboardingStep7() {
   const quoteOpacity = useRef(new Animated.Value(0)).current;
   const brandOpacity = useRef(new Animated.Value(0)).current;
 
-  // Crown shimmer sweep – start fully off-screen to the left (right edge must be < 0)
-  // crownWindow=76px, gradient width=CROWN_WIDTH*5=380, marginLeft=-76
-  // right_edge = translateX - 76 + 380 = translateX + 304 → need translateX < -304
-  const shimmerX = useRef(new Animated.Value(-CROWN_WIDTH * 5)).current;
+  // Crown shimmer – single progress value (0→1) drives both translateX AND opacity
+  // opacity=0 at start/end of each sweep → no visible flash on loop reset
+  const shimmerAnim = useRef(new Animated.Value(0)).current;
+  const shimmerX = shimmerAnim.interpolate({
+    inputRange: [0, 1],
+    outputRange: [-CROWN_WIDTH * 5, CROWN_WIDTH * 2],
+  });
+  const shimmerOpacity = shimmerAnim.interpolate({
+    inputRange: [0, 0.05, 0.85, 1],
+    outputRange: [0, 1, 1, 0],
+  });
 
   const payoffInfo = useMemo(() => {
     if (debts.length > 0) {
@@ -121,19 +128,18 @@ export default function OnboardingStep7() {
       ]).start();
     }, 1300);
 
-    // ── Crown shimmer sweep – starts after entrance completes ─────────────────
-    // Pokémon-shiny light ray sweeps over the golden crown
+    // ── Crown shimmer sweep – opacity-gated to prevent flash on loop reset ──────
     setTimeout(() => {
       Animated.loop(
         Animated.sequence([
-          Animated.timing(shimmerX, {
-            toValue: CROWN_WIDTH * 2,
+          Animated.timing(shimmerAnim, {
+            toValue: 1,
             duration: 750,
             useNativeDriver: true,
           }),
-          // instant reset far off-screen (no visible jump)
-          Animated.timing(shimmerX, {
-            toValue: -CROWN_WIDTH * 5,
+          // instant reset to 0 – opacity is 0 at both ends so no visible jump
+          Animated.timing(shimmerAnim, {
+            toValue: 0,
             duration: 0,
             useNativeDriver: true,
           }),
@@ -227,6 +233,7 @@ export default function OnboardingStep7() {
               <Animated.View
                 style={{
                   transform: [{ translateX: shimmerX }],
+                  opacity: shimmerOpacity,
                   width: CROWN_WIDTH * 5,
                   height: CROWN_HEIGHT,
                   marginLeft: -CROWN_WIDTH,

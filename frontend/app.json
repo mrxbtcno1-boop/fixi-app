@@ -4,7 +4,7 @@
     "slug": "fixi",
     "version": "1.3.3",
     "orientation": "portrait",
-    "icon": "./assets/images/splash-icon-v133.png",
+    "icon": "./assets/images/splash-icon.png",
     "scheme": "fixi",
     "userInterfaceStyle": "dark",
     "newArchEnabled": true,
@@ -26,14 +26,14 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/splash-icon-v133.png",
+        "foregroundImage": "./assets/images/splash-icon.png",
         "backgroundColor": "#00D4AA"
       }
     },
     "web": {
       "bundler": "metro",
       "output": "static",
-      "favicon": "./assets/images/splash-icon-v133.png"
+      "favicon": "./assets/images/splash-icon.png"
     },
     "plugins": [
       [
@@ -45,7 +45,7 @@
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/splash-icon-v133.png",
+          "image": "./assets/images/splash-icon.png",
           "imageWidth": 220,
           "resizeMode": "contain",
           "backgroundColor": "#0A0E1A"
@@ -55,7 +55,7 @@
       [
         "expo-notifications",
         {
-          "icon": "./assets/images/splash-icon-v133.png",
+          "icon": "./assets/images/splash-icon.png",
           "color": "#00D4AA",
           "sounds": []
         }

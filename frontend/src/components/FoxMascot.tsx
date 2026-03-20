@@ -10,7 +10,7 @@
  *   empathy / sad / worried  → fox-empathy.png    (einfühlsam, Hände zusammen – VERSTÄNDNIS)
  *   thinking / sleeping      → fox-thinking.png   (Kinn auf Faust, fokussiert – BERECHNUNG)
  *   default / base           → fox-base.png       (neutral, Arme aus)
- *   tiny                     → splash-icon-v133.png (Fuchskopf-Logo, rund)
+ *   tiny                     → splash-icon.png (Fuchskopf-Logo, rund)
  */
 import { useRef, useEffect } from 'react';
 import {
@@ -65,7 +65,7 @@ const IMAGES = {
   empathy:     require('../../assets/images/fox-empathy.png'),
   proud:       require('../../assets/images/fox-proud.png'),
   thinking:    require('../../assets/images/fox-thinking.png'),
-  icon:        require('../../assets/images/splash-icon-v133.png'),
+  icon:        require('../../assets/images/splash-icon.png'),
 };
 
 // ── State → Image Mapping ─────────────────────────────────────────────────────

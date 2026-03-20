@@ -47,12 +47,12 @@
       "CFBundleLocalizations": ["de"]
     },
     "assets_v133": {
-      "icon": "./assets/images/splash-icon-v133.png",
-      "adaptive_icon_foreground": "./assets/images/splash-icon-v133.png",
-      "splash_image": "./assets/images/splash-icon-v133.png",
+      "icon": "./assets/images/splash-icon.png",
+      "adaptive_icon_foreground": "./assets/images/splash-icon.png",
+      "splash_image": "./assets/images/splash-icon.png",
       "splash_background": "#0A0E1A",
-      "favicon": "./assets/images/splash-icon-v133.png",
-      "notification_icon": "./assets/images/splash-icon-v133.png",
+      "favicon": "./assets/images/splash-icon.png",
+      "notification_icon": "./assets/images/splash-icon.png",
       "description": "Gekrönter 3D-Fuchs auf schwarzem Hintergrund (636KB PNG)"
     }
   },
@@ -417,7 +417,7 @@
     "achievements":              "frontend/app/(tabs)/achievements.tsx",
     "ai_coach":                  "frontend/app/ai-coach.tsx",
     "profile":                   "frontend/app/(tabs)/profile.tsx",
-    "splash_icon_v133":          "frontend/assets/images/splash-icon-v133.png",
+    "splash_icon_v133":          "frontend/assets/images/splash-icon.png",
     "metadata_json":             "memory/fixi_project_metadata.json",
     "prd":                       "memory/PRD.md"
   },

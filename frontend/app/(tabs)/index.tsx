@@ -9,7 +9,7 @@ import { useAppStore } from '../../src/store/useStore';
 import { useTheme, useThemeOverrides } from '../../src/contexts/ThemeContext';
 import { CircularProgress } from '../../src/components/CircularProgress';
 import { FoxMascot } from '../../src/components/FoxMascot';
-import { getFixiLevel, FIXI_LEVELS } from '../../src/components/Fixi/FixiAccessories';
+import { getFixiLevel, FIXI_LEVELS, getCurrentEvoFox } from '../../src/components/Fixi/FixiAccessories';
 import type { FixiState } from '../../src/components/Fixi/FixiStates';
 import { FixiDailyCard } from '../../src/components/FixiDailyCard';
 import { FixiFullscreenMoment } from '../../src/components/FixiFullscreenMoment';
@@ -350,6 +350,7 @@ export default function HomeScreen() {
               speechBubble={fixiBubble}
               onPress={handleFixiTap}
               percentPaid={percentText}
+              evolutionImage={getCurrentEvoFox(percentText)}
             />
           </View>
 
@@ -431,7 +432,14 @@ export default function HomeScreen() {
                 <View style={[styles.quickIcon, { backgroundColor: a.color + '20' }]}>
                   <Ionicons name={a.icon as any} size={24} color={a.color} />
                 </View>
-                <Text style={[styles.quickLabel, t.textSecondary]}>{a.label}</Text>
+                <Text
+                  style={[styles.quickLabel, t.textSecondary]}
+                  numberOfLines={1}
+                  adjustsFontSizeToFit
+                  minimumFontScale={0.75}
+                >
+                  {a.label}
+                </Text>
               </TouchableOpacity>
             ))}
           </ScrollView>
@@ -553,9 +561,10 @@ export default function HomeScreen() {
                 size="small"
                 showSpeechBubble={false}
                 percentPaid={percentText}
+                evolutionImage={getCurrentEvoFox(percentText)}
               />
               <View>
-                <Text style={[styles.levelName, t.textPrimary]}>{'🦊'} Fixi Level {fixiLevel.level}: {fixiLevel.name}</Text>
+                <Text style={[styles.levelName, t.textPrimary]}>Fixi Level {fixiLevel.level}: {fixiLevel.name}</Text>
                 <Text style={[styles.levelProgress, t.textSecondary]}>{percentText}% getilgt</Text>
               </View>
             </View>
@@ -779,9 +788,9 @@ const styles = StyleSheet.create({
   fasterBtn: { marginTop: 12 },
   fasterText: { fontSize: 15, fontWeight: '600', color: Colors.brand.primary },
   quickScroll: { marginBottom: 16 },
-  quickContent: { gap: 10, paddingVertical: 4, paddingHorizontal: 16 },
+  quickContent: { gap: 8, paddingVertical: 4, paddingHorizontal: 16 },
   quickCard: {
-    width: 80,
+    width: 88,
     alignItems: 'center',
     backgroundColor: Colors.background.secondary,
     borderRadius: BorderRadius.lg,
@@ -790,7 +799,7 @@ const styles = StyleSheet.create({
     borderColor: Colors.glass.stroke,
   },
   quickIcon: { width: 40, height: 40, borderRadius: 20, alignItems: 'center', justifyContent: 'center', marginBottom: 6 },
-  quickLabel: { fontSize: 11, color: Colors.text.secondary, textAlign: 'center' },
+  quickLabel: { fontSize: 11, color: Colors.text.secondary, textAlign: 'center', width: '100%' },
   streakWrapper: { position: 'relative', marginBottom: 16 },
   streakCard: {
     borderRadius: BorderRadius.lg,

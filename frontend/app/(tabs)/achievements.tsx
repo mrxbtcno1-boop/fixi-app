@@ -89,9 +89,15 @@ export default function AchievementsScreen() {
       <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
         <Text style={[styles.title, t.textPrimary]}>Erfolge</Text>
 
-        {/* Level Display */}
+        {/* Level Display – Hero mit Evolution Fox */}
         <View style={[styles.levelCard, t.bgCard]} data-testid="level-card">
-          <FoxMascot state="motivated" size="large" showSpeechBubble={false} percentPaid={percentPaid} />
+          <FoxMascot
+            state="motivated"
+            size="large"
+            showSpeechBubble={false}
+            percentPaid={percentPaid}
+            evolutionImage={fixiLevel.evolutionImage}
+          />
           <Text style={[styles.levelLabel, t.textSecondary]}>Level {fixiLevel.level}</Text>
           <Text style={[styles.levelName, t.textPrimary]}>{fixiLevel.name}</Text>
           <Text style={[styles.levelAccessory, t.textSecondary]}>{fixiLevel.accessoryLabel}</Text>

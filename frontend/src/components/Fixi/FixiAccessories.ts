@@ -78,3 +78,8 @@ export function getFixiLevel(percentPaid: number): FixiLevel {
   if (percentPaid >= 10) return FIXI_LEVELS[1];
   return FIXI_LEVELS[0];
 }
+
+/** Returns the evolution image asset for the current user level – single source of truth */
+export function getCurrentEvoFox(percentPaid: number): any {
+  return getFixiLevel(percentPaid).evolutionImage;
+}

@@ -46,6 +46,8 @@ export interface FoxMascotProps {
   speechBubble?: string;
   /** Set false to disable built-in animation (when parent controls animation) */
   animated?: boolean;
+  /** Override image with evolution asset (fox-starter, fox-fighter, etc.) */
+  evolutionImage?: any;
   // Legacy props kept for backwards compatibility
   accessory?: string;
   onPress?: () => void;
@@ -107,15 +109,16 @@ export function FoxMascot({
   size = 'medium',
   speechBubble,
   animated: enableAnim = true,
+  evolutionImage,
   onPress,
 }: FoxMascotProps) {
   const { isDark } = useTheme();
   const foxSize = SIZES[size];
-  const glowColor = GLOW[state] ?? null;
+  const glowColor = evolutionImage ? '#00D4AA' : (GLOW[state] ?? null);
 
-  // tiny uses the circular head icon
   const isTiny = size === 'tiny';
-  const imageSource = isTiny ? IMAGES.icon : IMAGES[STATE_IMAGE[state] ?? 'base'];
+  // evolutionImage overrides the state-based image
+  const imageSource = isTiny ? IMAGES.icon : (evolutionImage ?? IMAGES[STATE_IMAGE[state] ?? 'base']);
 
   // ── Animation values ────────────────────────────────────────────────────────
   const transY  = useRef(new Animated.Value(0)).current;

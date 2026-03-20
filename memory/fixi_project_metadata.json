@@ -5,6 +5,410 @@
     "description": "Schulden-Tracker & Motivations-App – hilft Nutzern, Schulden zu visualisieren, ein konkretes Freiheitsdatum zu berechnen und durch Gamification & KI-Coaching motiviert zu bleiben.",
     "language": "de",
     "status": "production_ready",
+    "build_date": "2026-03-20"
+  },
+
+  "versioning": {
+    "current_version": "1.3.0",
+    "build_number": "17",
+    "expo_sdk": "54.0.33",
+    "react_native": "0.81.5",
+    "react": "19.1.0",
+    "version_history": [
+      { "version": "1.0–1.2", "label": "Foundation", "notes": "Debt tracker, calculations, gamification, biometric lock, paywall" },
+      { "version": "1.3.0",   "label": "Onboarding Overhaul", "notes": "7-step emotional onboarding, Fox Mascot (6 states), Animated speech bubbles" },
+      { "version": "1.3.1",   "label": "Brand Polish Sprint", "notes": "FoxMascot web shadow fix, Syne font removed, Paywall/Profile/AI-Coach font fixes, full QA" },
+      { "version": "1.3.2",   "label": "Onboarding Visual Upgrade", "notes": "step3 age cards + step4 emotion chips redesigned with animations" },
+      { "version": "1.3.3",   "label": "Share-Card + Golden Crown Shimmer", "notes": "expo-sharing share flow on step7, Pokémon-Shiny crown animation on Fox" },
+      { "version": "1.3.4",   "label": "Notifications + Face-ID + Light Mode Audit", "notes": "Push notifications, face-id screen upgrade (3 Trust-Rows, Pulse, Stagger), full light mode audit (step3/step4/FixiFullscreenMoment fixed)" },
+      { "version": "1.3.5",   "label": "Fox Evolution System", "notes": "4 Evolution-Images (starter/fighter/warrior/champion) integriert in Achievements Hero + Row + Dashboard. getCurrentEvoFox() zentraler Helper. Quick-Action Text-Wrapping fix. KeyboardAvoidingView + ScrollView fix für onboarding-name." },
+      { "version": "1.3.6",   "label": "Fox State Mapping komplett", "notes": "2 neue Fox-Assets (excited/thinking). Fox-States korrigiert: welcome=happy, step5=excited, step6=coaching, paywall=excited (war Fallback auf base). fox-thinking als neuer State registriert mit goldenem Glow." },
+      { "version": "1.3.7",   "label": "fox-thinking im KI-Coach", "notes": "KI-Coach Header-Avatar und Chat-Bubble-Avatar von fox-coaching → fox-thinking. Vermittelt Intelligenz und Analyse statt Direktive." }
+    ],
+    "next_planned": "1.4.0 – Streak Shield IAP",
+    "git_branch": "conflict_210226_0044",
+    "git_repo": "https://github.com/mrxbtcno1-boop/fixi-app",
+    "last_push": "2026-03-20"
+  },
+
+  "app_store": {
+    "platform": "iOS",
+    "bundle_identifier": "com.getfixi.app",
+    "owner": "keko7777",
+    "eas_project_id": "65795ac9-ed3b-4749-b589-4d4d8bd7c91c",
+    "scheme": "fixi",
+    "supports_tablet": false,
+    "orientation": "portrait",
+    "new_arch_enabled": true,
+    "build_command": "EAS_NO_VCS=1 eas build --platform ios",
+    "info_plist": {
+      "NSFaceIDUsageDescription": "Für schnelles und sicheres Anmelden",
+      "NSUserNotificationUsageDescription": "Wir erinnern dich an dein Schuldenfreiheitsdatum und wichtige Meilensteine.",
+      "ITSAppUsesNonExemptEncryption": false,
+      "CFBundleDevelopmentRegion": "de",
+      "CFBundleLocalizations": ["de"]
+    }
+  },
+
+  "design_system": {
+    "colors": {
+      "brand_primary": "#00D4AA",
+      "brand_primary_light": "#00B899",
+      "brand_secondary": "#00A88A",
+      "gold": "#FFB800",
+      "background_dark": "#080E1C",
+      "background_card_dark": "rgba(20,25,41,0.85)",
+      "background_light": "#F4F6FA",
+      "background_card_light": "#FFFFFF",
+      "text_primary_dark": "#F0F4FF",
+      "text_secondary_dark": "#8A96A8",
+      "text_primary_light": "#0D1526",
+      "text_secondary_light": "#5A6478",
+      "error": "#FF4D6D",
+      "warning": "#FFB800"
+    },
+    "fonts": {
+      "headlines_ctas": "Nunito_900Black",
+      "speech_bubbles": "Nunito_900Black",
+      "body": "Inter_500Medium",
+      "body_light": "Inter_400Regular",
+      "removed": "Syne_800ExtraBold (removed in v1.3.1)"
+    },
+    "rules": {
+      "speech_bubble_suffix": "Always ends with 🦊",
+      "cta_gradient": "#00D4AA → #00A88A (NO purple/violet)",
+      "cta_text_color": "#0A0E1A (dark on mint, never white)",
+      "user_chat_bubble_text": "#0D1526 (dark on mint – max contrast)",
+      "default_theme": "dark",
+      "available_themes": ["dark", "light"],
+      "theme_storage_key": "fixi_theme_mode",
+      "theme_rule": "ALL components must use useThemeOverrides() – no hardcoded dark colors ever"
+    },
+    "border_radius": {
+      "full": 999,
+      "xl": 20,
+      "lg": 16,
+      "md": 12,
+      "sm": 8
+    }
+  },
+
+  "fox_mascot": {
+    "version": "v4",
+    "format": "PNG (3D rendered, transparent background)",
+    "component": "src/components/FoxMascot.tsx",
+    "evolutionImage_prop": "Pass any require() image to override state-based image",
+    "states": {
+      "celebrating": { "file": "fox-celebrating.png", "glow": "#00D4AA", "usage": "ACHIEVEMENT moments only – step7 Date-Reveal, Level-Up, Debt-Cleared" },
+      "excited":     { "file": "fox-excited.png",     "glow": "#00D4AA", "usage": "Energy/pitch moments – step5 Triple-Yes, paywall, Achievement-Unlocks" },
+      "happy":       { "file": "fox-happy.png",       "glow": "#00D4AA", "usage": "Warm welcome – welcome screen, onboarding-name" },
+      "proud":       { "file": "fox-proud.png",       "glow": "#FFB800", "usage": "Confident pitch – future use (paywall alt, premium screens)" },
+      "coaching":    { "file": "fox-coaching.png",    "glow": "#00D4AA", "usage": "Guidance/directive – step3, step6, face-id" },
+      "empathy":     { "file": "fox-empathy.png",     "glow": "#A78BFA", "usage": "Emotional support – step4, future Streak Shield modal" },
+      "thinking":    { "file": "fox-thinking.png",    "glow": "#FFB800", "usage": "Analysis/calculation – KI-Coach (header + bubble), future typing indicator, simulator" },
+      "base":        { "file": "fox-base.png",        "glow": null,      "usage": "Neutral fallback only – avoid using directly" }
+    },
+    "evolution_images": {
+      "fox-starter.png":  { "level": 1, "range": "0-10%",   "description": "Weißes T-Shirt, Sparschwein, goldene Krone" },
+      "fox-fighter.png":  { "level": 2, "range": "10-25%",  "description": "Mint-Schild, Münzen" },
+      "fox-warrior.png":  { "level": 3, "range": "25-50%",  "description": "Schwert, zerbrochene Ketten" },
+      "fox-champion.png": { "level": 4, "range": "50-75%",  "description": "Volle Rüstung, Krone, Konfetti – auch für Level 6 Legend" }
+    },
+    "sizes": ["tiny", "small", "medium", "large"],
+    "speech_bubble_prop": "speechBubble (string, must end with 🦊)",
+    "crown_shimmer": "Pokémon-Shiny sweep on step7 (gold → white → gold, 750ms loop, 2.8s pause)"
+  },
+
+  "onboarding_flow": {
+    "total_steps": 9,
+    "screens": [
+      {
+        "route": "/welcome",
+        "fox_state": "happy",
+        "fox_file": "fox-happy.png",
+        "purpose": "Warmer erster Kontakt, Brand-Moment",
+        "note": "Bewusst NICHT celebrating – den Triumph für step7 aufsparen",
+        "theme_status": "✅ dark + light"
+      },
+      {
+        "route": "/onboarding-name",
+        "fox_state": "happy (welcome alias)",
+        "fox_file": "fox-happy.png",
+        "purpose": "Name-Eingabe, Personalisierung",
+        "fix_v135": "ScrollView wrapper → kein Keyboard-Overlap mehr auf iPhone SE",
+        "theme_status": "✅ dark + light"
+      },
+      {
+        "route": "/onboarding/step3",
+        "fox_state": "coaching",
+        "fox_file": "fox-coaching.png",
+        "purpose": "Altersgruppen-Auswahl (6 Cards)",
+        "animations": "Press-scale via Animated.spring",
+        "fix_v134": "Cards jetzt theme-adaptive (dark: rgba(20,25,41,0.85) / light: #FFFFFF)",
+        "theme_status": "✅ dark + light"
+      },
+      {
+        "route": "/onboarding/step4",
+        "fox_state": "empathy",
+        "fox_file": "fox-empathy.png",
+        "purpose": "Emotionaler Zustand (3 Kategorien, 11 Chips)",
+        "animations": "Stagger fade-in 40ms delay, bounce on select",
+        "fix_v134": "EmotionChips + AffirmationBanner jetzt theme-adaptive",
+        "theme_status": "✅ dark + light"
+      },
+      {
+        "route": "/onboarding/step5",
+        "fox_state": "excited",
+        "fox_file": "fox-excited.png",
+        "purpose": "Triple-Yes – 3 Feature-Cards",
+        "note": "War 'motivated' → Fallback auf fox-base. Jetzt echter excited-Fox mit Energie-Burst",
+        "social_proof": "Über 50.000 Nutzer bereits auf dem Weg zur Freiheit",
+        "theme_status": "✅ dark + light"
+      },
+      {
+        "route": "/onboarding/step6",
+        "fox_state": "coaching",
+        "fox_file": "fox-coaching.png",
+        "purpose": "Erste Schulden-Eingabe",
+        "trust_badge": "Mint-Pill: Verschlüsselt · Nur auf deinem Gerät (Lock-Icon, volle Opacity)",
+        "note": "War 'motivated' → Fallback auf fox-base. Jetzt coaching.",
+        "theme_status": "✅ dark + light"
+      },
+      {
+        "route": "/onboarding/step7",
+        "fox_state": "celebrating",
+        "fox_file": "fox-celebrating.png",
+        "purpose": "Datum-Reveal – emotionaler Kern der App",
+        "features": ["Konfetti", "Golden Crown Shimmer", "Freiheitsdatum in Mint", "Teilen-Button"],
+        "fix_v134": "crownWindow + foxWrap backgroundColor: transparent → kein gelbes Kästchen im Light Mode",
+        "theme_status": "✅ dark + light"
+      },
+      {
+        "route": "/face-id",
+        "fox_state": "coaching",
+        "fox_file": "fox-coaching.png",
+        "speech_bubble_face": "Deine Daten gehören dir. Ich pass auf. 🦊",
+        "speech_bubble_finger": "Niemand außer dir kommt hier rein. 🦊",
+        "purpose": "Letztes Vertrauens-Signal vor Paywall",
+        "trust_items": [
+          "Nur du kannst deine Daten sehen",
+          "Alles lokal auf deinem Gerät gespeichert",
+          "Keine Cloud, kein Account, keine Weitergabe"
+        ],
+        "features": ["Stagger-Animationen", "Pulse auf Biometrie-Kreis", "3 Trust-Rows", "Mint CTA + Text-Skip"],
+        "navigation": {
+          "activate": "router.replace('/paywall') – immer",
+          "skip": "router.replace('/paywall') – direkt",
+          "no_hardware": "router.replace('/paywall') – auto"
+        },
+        "theme_status": "✅ dark + light"
+      },
+      {
+        "route": "/paywall",
+        "fox_state": "excited",
+        "fox_file": "fox-excited.png",
+        "speech_bubble": "Ich bin bereit wenn du es bist! 🦊",
+        "purpose": "RevenueCat Paywall – Konversion",
+        "note": "War 'excited' aber Fallback auf fox-base. Jetzt echter springender Fox als direkter Konversions-Trigger.",
+        "plans": [
+          { "id": "yearly",  "badge": "BELIEBTESTE OPTION", "savings": "Du sparst 52%" },
+          { "id": "monthly", "note": "Fallback" }
+        ],
+        "trial": "7 Tage GRATIS testen",
+        "theme_status": "✅ dark + light"
+      }
+    ]
+  },
+
+  "main_app_screens": {
+    "ai_coach": {
+      "route": "/ai-coach",
+      "fox_header": "fox-thinking.png (44x44px, transparent)",
+      "fox_bubble_avatar": "fox-thinking.png (36x36px)",
+      "note": "War fox-coaching. Thinking vermittelt Intelligenz + Analyse statt Direktive.",
+      "user_message_text_color": "#0D1526 (dark text on mint bubble – max contrast, fixed v1.3.4)",
+      "supabase_function": "coach-chat",
+      "ai_model": "GPT-4o-mini",
+      "last_api_test": "2026-03-19 HTTP 200 ✅"
+    },
+    "home_dashboard": {
+      "route": "/(tabs)",
+      "fox_top_right": "getCurrentEvoFox(percentPaid) – dynamisch nach Level",
+      "fox_level_card": "getCurrentEvoFox(percentPaid) – dynamisch nach Level",
+      "greeting_modal": "FixiFullscreenMoment – theme-adaptive (v1.3.4 fix)",
+      "quick_actions": {
+        "fix_v135": "quickCard 88px, numberOfLines=1, adjustsFontSizeToFit, minimumFontScale=0.75 – kein Textumbruch bei Statistiken"
+      }
+    },
+    "achievements": {
+      "route": "/(tabs)/achievements",
+      "level_hero": "evolutionImage aus fixiLevel – fox-starter/fighter/warrior/champion groß als Hero-Element",
+      "evolution_row": "Alle 6 Levels mit echten PNG-Assets (starter/fighter/warrior/warrior/champion/champion)"
+    }
+  },
+
+  "fox_state_map_final": {
+    "welcome":         "happy (fox-happy.png)",
+    "onboarding_name": "happy (fox-happy.png)",
+    "step3":           "coaching (fox-coaching.png)",
+    "step4":           "empathy (fox-empathy.png)",
+    "step5":           "excited (fox-excited.png) ← war Fallback auf base",
+    "step6":           "coaching (fox-coaching.png) ← war Fallback auf base",
+    "step7":           "celebrating (fox-celebrating.png)",
+    "face_id":         "coaching (fox-coaching.png)",
+    "paywall":         "excited (fox-excited.png) ← war Fallback auf base",
+    "ai_coach":        "thinking (fox-thinking.png) ← war coaching",
+    "home_top_right":  "getCurrentEvoFox() – evolution-dynamisch",
+    "home_level_card": "getCurrentEvoFox() – evolution-dynamisch",
+    "achievements_hero": "fixiLevel.evolutionImage – evolution-dynamisch"
+  },
+
+  "notifications": {
+    "service_file": "src/services/NotificationService.ts",
+    "package": "expo-notifications@~0.32.16",
+    "plugin_configured": true,
+    "ios_color": "#00D4AA",
+    "scheduled_notifications": {
+      "freedom_day": {
+        "title": "Heute wärst du schuldenfrei. 🦊",
+        "trigger": "Genau am berechneten Freiheitsdatum"
+      },
+      "freedom_reminder_30d": {
+        "title": "Noch 30 Tage bis zur Schuldenfreiheit! 🦊",
+        "trigger": "30 Tage vor dem Freiheitsdatum"
+      },
+      "morning_motivation": { "trigger": "Täglich 08:00" },
+      "evening_reflection":  { "trigger": "Täglich 20:00" },
+      "streak_reminder":     { "trigger": "Täglich 10:00" }
+    },
+    "permission_trigger": "Nach Face-ID Screen (beide Pfade: activate + skip)",
+    "async_storage_keys": {
+      "planned_freedom_date": "@fixi:planned_freedom_date",
+      "onboarding_start": "@fixi:onboarding_start"
+    }
+  },
+
+  "third_party_integrations": {
+    "supabase": {
+      "url": "https://dzrtpbbztgixdawjfhbz.supabase.co",
+      "ai_coach_function": "coach-chat",
+      "ai_model": "GPT-4o-mini",
+      "last_test": "2026-03-19 HTTP 200 ✅",
+      "package": "@supabase/supabase-js@^2.98.0"
+    },
+    "revenuecat": {
+      "package": "react-native-purchases@^9.10.0",
+      "api_key": "appl_PpZmqUkOybeXgtKOiADJootjceF",
+      "entitlement_id": "Fixi - Schuldenfrei mit Plan Pro",
+      "warning": "⚠️ DO NOT TOUCH – Live IAP configuration",
+      "service_file": "src/services/PurchaseService.ts"
+    },
+    "expo_notifications": { "package": "expo-notifications@~0.32.16" },
+    "expo_local_auth":    { "package": "expo-local-authentication@^17.0.8" },
+    "expo_sharing":       { "package": "expo-sharing@~14.0.8" },
+    "react_native_view_shot": { "package": "react-native-view-shot@^4.0.3" }
+  },
+
+  "gamification": {
+    "levels": {
+      "system": "FIXI_LEVELS in src/components/Fixi/FixiAccessories.ts",
+      "helper": "getCurrentEvoFox(percentPaid) → returns require() image",
+      "levels": [
+        { "level": 1, "name": "Fixi Starter",  "range": "0-10%",   "image": "fox-starter.png" },
+        { "level": 2, "name": "Fixi Fighter",  "range": "10-25%",  "image": "fox-fighter.png" },
+        { "level": 3, "name": "Fixi Warrior",  "range": "25-50%",  "image": "fox-warrior.png" },
+        { "level": 4, "name": "Fixi Champion", "range": "50-75%",  "image": "fox-champion.png" },
+        { "level": 5, "name": "Fixi Master",   "range": "75-99%",  "image": "fox-warrior.png (reused)" },
+        { "level": 6, "name": "Fixi Legend",   "range": "100%",    "image": "fox-champion.png (reused)" }
+      ]
+    },
+    "streak_shield": {
+      "status": "PLACEHOLDER_ONLY – nächster Sprint",
+      "file": "src/components/StreakShieldModal.tsx",
+      "iap_product_id": "streak_shield_099",
+      "price": "€0.99 consumable via RevenueCat",
+      "trigger": "Erster App-Open nach gebrochenem Streak",
+      "psychology": "Loss aversion – 24h Timer, Fox empathy state"
+    },
+    "fullscreen_moments": {
+      "component": "src/components/FixiFullscreenMoment.tsx",
+      "types": ["milestone", "levelup", "debt_cleared", "greeting"],
+      "theme_adaptive": true,
+      "fix_v134": "Gradient theme-aware (dark: rgba(10,14,26,0.97) / light: rgba(244,246,250,0.98))"
+    }
+  },
+
+  "light_mode_audit": {
+    "date": "2026-03-20",
+    "all_screens_green": true,
+    "fixes_applied": [
+      "step3 – Age Cards: dark bg → theme-adaptive (white in light)",
+      "step4 – EmotionChips + AffirmationBanner: dark bg → theme-adaptive",
+      "step7 – crownWindow + foxWrap: backgroundColor transparent → kein gelbes Kästchen",
+      "FixiFullscreenMoment – Gradient: dark-only → theme-aware"
+    ]
+  },
+
+  "build_status": {
+    "last_build_check": "2026-03-20",
+    "command": "yarn expo export --platform web",
+    "result": "Exit 0 ✅ – keine TypeScript-Fehler",
+    "last_commit": "V1.3.7 - fox-thinking im KI-Coach",
+    "last_push": "2026-03-20 → conflict_210226_0044"
+  },
+
+  "roadmap": {
+    "p1_next": {
+      "feature": "Streak Shield",
+      "type": "RevenueCat Consumable IAP €0.99",
+      "fox_state": "empathy",
+      "copy_headline": "Dein Streak ist gerade gebrochen.",
+      "copy_sub": "Einmal passiert. Muss nicht bleiben.",
+      "placeholder_file": "src/components/StreakShieldModal.tsx"
+    },
+    "p2": { "feature": "Accountability Partner Mode" },
+    "p3": { "feature": "B2B Employee Wellness" },
+    "idea": {
+      "feature": "Schuldenfrei-Simulator als Onboarding-Teaser",
+      "description": "Nutzer sieht Freiheitsdatum VOR Registrierung – Conversion-Magnet"
+    }
+  },
+
+  "key_files": {
+    "app_config":            "app.json",
+    "fox_component":         "src/components/FoxMascot.tsx",
+    "fox_accessories":       "src/components/Fixi/FixiAccessories.ts",
+    "fullscreen_moment":     "src/components/FixiFullscreenMoment.tsx",
+    "streak_shield_placeholder": "src/components/StreakShieldModal.tsx",
+    "notification_service":  "src/services/NotificationService.ts",
+    "purchase_service":      "src/services/PurchaseService.ts",
+    "supabase_client":       "src/services/supabase.ts",
+    "theme_context":         "src/contexts/ThemeContext.tsx",
+    "design_tokens":         "src/constants/theme.ts",
+    "home_dashboard":        "app/(tabs)/index.tsx",
+    "achievements":          "app/(tabs)/achievements.tsx",
+    "ai_coach":              "app/ai-coach.tsx",
+    "metadata_json":         "memory/fixi_project_metadata.json",
+    "prd":                   "memory/PRD.md"
+  },
+
+  "critical_rules": {
+    "never_touch":        "RevenueCat API Key + Entitlement ID",
+    "font_rule":          "Nunito_900Black für ALLE Headlines + CTAs (kein Syne, kein system font)",
+    "speech_bubble_rule": "Immer 🦊 am Ende",
+    "cta_rule":           "Mint gradient #00D4AA → #00A88A, Text #0A0E1A (nie weiß)",
+    "theme_rule":         "Alle neuen Components via useThemeOverrides() – keine hardcoded dark colors",
+    "fox_rule":           "celebrating NUR für echte Achievements (step7, level-up, debt-cleared) – nie als Standard",
+    "evolution_rule":     "getCurrentEvoFox() ist single source of truth – nie direkt require() in Screens",
+    "navigation_faceid":  "Beide CTAs (activate + skip) MÜSSEN router.replace('/paywall') – conversion-kritisch",
+    "trust_copy_rule":    "Keine technisch falschen Claims (kein AES-256, kein military-grade) – nur was AsyncStorage wirklich tut"
+  }
+}
+    "name": "Fixi",
+    "tagline": "Schuldenfrei mit KI-Plan",
+    "description": "Schulden-Tracker & Motivations-App – hilft Nutzern, Schulden zu visualisieren, ein konkretes Freiheitsdatum zu berechnen und durch Gamification & KI-Coaching motiviert zu bleiben.",
+    "language": "de",
+    "status": "production_ready",
     "build_date": "2026-03-19"
   },
 

@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import {
   View, Text, StyleSheet, TouchableOpacity, TextInput,
-  KeyboardAvoidingView, Platform, Animated,
+  KeyboardAvoidingView, Platform, Animated, ScrollView,
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -69,67 +69,76 @@ export default function OnboardingNameScreen() {
       <SafeAreaView style={styles.safe}>
         <KeyboardAvoidingView
           style={styles.flex}
-          behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          keyboardVerticalOffset={0}
         >
-          <Animated.View style={[styles.content, { opacity: fadeAnim }]}>
-            {/* Fox mascot – large */}
-            <FoxMascot state="welcome" size="large" />
+          <ScrollView
+            style={styles.flex}
+            contentContainerStyle={styles.scrollContent}
+            keyboardShouldPersistTaps="handled"
+            showsVerticalScrollIndicator={false}
+            bounces={false}
+          >
+            <Animated.View style={[styles.content, { opacity: fadeAnim }]}>
+              {/* Fox mascot – large */}
+              <FoxMascot state="welcome" size="large" />
 
-            {/* Dynamic speech bubble */}
-            {hasTyped && (
-              <Animated.View
-                style={[
-                  styles.speechBubble,
-                  { backgroundColor: bubbleBg, borderColor: bubbleBorder, opacity: bubbleOpacity, transform: [{ scale: bubbleScale }] },
-                ]}
-              >
-                <Text style={[styles.speechText, { fontFamily: 'Nunito_900Black', color: MINT }]}>
-                  {bubbleText}
+              {/* Dynamic speech bubble */}
+              {hasTyped && (
+                <Animated.View
+                  style={[
+                    styles.speechBubble,
+                    { backgroundColor: bubbleBg, borderColor: bubbleBorder, opacity: bubbleOpacity, transform: [{ scale: bubbleScale }] },
+                  ]}
+                >
+                  <Text style={[styles.speechText, { fontFamily: 'Nunito_900Black', color: MINT }]}>
+                    {bubbleText}
+                  </Text>
+                </Animated.View>
+              )}
+
+              {/* Question */}
+              <Text style={[styles.question, t.textPrimary, { fontFamily: 'Nunito_900Black' }]}>
+                Wie sollen wir dich nennen?
+              </Text>
+
+              {/* Underline input */}
+              <View style={[styles.inputWrap, { borderBottomColor: inputUnderlineColor }]}>
+                <TextInput
+                  ref={inputRef}
+                  testID="name-screen-input"
+                  style={[styles.input, { color: t.colors.text.primary, fontFamily: 'Nunito_900Black' }]}
+                  value={name}
+                  onChangeText={handleTextChange}
+                  onFocus={() => setIsInputFocused(true)}
+                  onBlur={() => setIsInputFocused(false)}
+                  placeholder="Dein Vorname"
+                  placeholderTextColor={t.colors.text.tertiary}
+                  returnKeyType="done"
+                  onSubmitEditing={handleNext}
+                  autoCapitalize="words"
+                  maxLength={20}
+                />
+              </View>
+
+              {/* Privacy hint */}
+              <View style={styles.privacyRow}>
+                <Ionicons name="lock-closed-outline" size={13} color={t.colors.text.tertiary} />
+                <Text style={[styles.hint, t.textTertiary, { fontFamily: 'Inter_400Regular' }]}>
+                  Fixi speichert alles nur auf deinem Gerät.
                 </Text>
-              </Animated.View>
-            )}
+              </View>
 
-            {/* Question */}
-            <Text style={[styles.question, t.textPrimary, { fontFamily: 'Nunito_900Black' }]}>
-              Wie sollen wir dich nennen?
-            </Text>
+              {/* Fact card */}
+              <View style={styles.factCard}>
+                <Text style={[styles.factText, { color: t.isDark ? '#00D4AA' : '#00A88A', fontFamily: 'Inter_400Regular' }]}>
+                  ⭐ Wer seinen Schuldenplan aufschreibt, zahlt 2× schneller zurück.
+                </Text>
+              </View>
+            </Animated.View>
+          </ScrollView>
 
-            {/* Underline input */}
-            <View style={[styles.inputWrap, { borderBottomColor: inputUnderlineColor }]}>
-              <TextInput
-                ref={inputRef}
-                testID="name-screen-input"
-                style={[styles.input, { color: t.colors.text.primary, fontFamily: 'Nunito_900Black' }]}
-                value={name}
-                onChangeText={handleTextChange}
-                onFocus={() => setIsInputFocused(true)}
-                onBlur={() => setIsInputFocused(false)}
-                placeholder="Dein Vorname"
-                placeholderTextColor={t.colors.text.tertiary}
-                returnKeyType="done"
-                onSubmitEditing={handleNext}
-                autoCapitalize="words"
-                maxLength={20}
-              />
-            </View>
-
-            {/* Privacy hint */}
-            <View style={styles.privacyRow}>
-              <Ionicons name="lock-closed-outline" size={13} color={t.colors.text.tertiary} />
-              <Text style={[styles.hint, t.textTertiary, { fontFamily: 'Inter_400Regular' }]}>
-                Fixi speichert alles nur auf deinem Gerät.
-              </Text>
-            </View>
-
-            {/* Fact card */}
-            <View style={styles.factCard}>
-              <Text style={[styles.factText, { color: t.isDark ? '#00D4AA' : '#00A88A', fontFamily: 'Inter_400Regular' }]}>
-                ⭐ Wer seinen Schuldenplan aufschreibt, zahlt 2× schneller zurück.
-              </Text>
-            </View>
-          </Animated.View>
-
-          {/* CTA */}
+          {/* CTA – always above keyboard */}
           <View style={styles.footer}>
             <TouchableOpacity
               testID="name-screen-continue-btn"
@@ -157,12 +166,15 @@ const styles = StyleSheet.create({
   container: { flex: 1 },
   safe: { flex: 1 },
   flex: { flex: 1 },
-  content: {
-    flex: 1,
+  scrollContent: {
+    flexGrow: 1,
+    justifyContent: 'center',
     paddingHorizontal: Spacing.xl,
     paddingTop: 24,
+    paddingBottom: 12,
+  },
+  content: {
     alignItems: 'center',
-    justifyContent: 'center',
   },
   speechBubble: {
     marginTop: 14,

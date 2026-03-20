@@ -388,6 +388,7 @@ const styles = StyleSheet.create({
     height: FOX_SIZE,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: 'transparent',
   },
   crownWindow: {
     position: 'absolute',
@@ -397,6 +398,7 @@ const styles = StyleSheet.create({
     height: CROWN_HEIGHT,
     overflow: 'hidden',
     zIndex: 5,
+    backgroundColor: 'transparent',
   },
 
   // ── Date reveal ──────────────────────────────────────────────────────────

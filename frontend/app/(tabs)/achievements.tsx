@@ -1,5 +1,5 @@
 import { useState, useMemo, useEffect } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Platform } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Platform, Image } from 'react-native';
 import { useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -119,7 +119,13 @@ export default function AchievementsScreen() {
             const isCurrent = fixiLevel.level === l.level;
             return (
               <View key={l.level} style={[styles.evoItem, t.bgCard, isCurrent && styles.evoItemCurrent, !isActive && styles.evoItemLocked]}>
-                <FoxMascot state="proud" size="small" showSpeechBubble={false} accessory={l.accessory} animated={false} />
+                <View style={styles.evoImageWrap}>
+                  <Image
+                    source={l.evolutionImage}
+                    style={styles.evoImage}
+                    resizeMode="contain"
+                  />
+                </View>
                 <Text style={[styles.evoName, isActive && styles.evoNameActive, isActive && t.textPrimary]}>{l.name}</Text>
                 <Text style={[styles.evoRange, t.textTertiary]}>{l.minPercent}-{l.maxPercent}%</Text>
                 {isCurrent && <View style={styles.currentDot} />}
@@ -315,7 +321,7 @@ const styles = StyleSheet.create({
   sectionTitle: { fontSize: 20, fontWeight: '600', color: Colors.text.primary, marginBottom: 12 },
   evolutionScroll: { marginBottom: 24 },
   evoItem: {
-    width: 90,
+    width: 100,
     alignItems: 'center',
     backgroundColor: Colors.background.secondary,
     borderRadius: BorderRadius.md,
@@ -327,7 +333,19 @@ const styles = StyleSheet.create({
   },
   evoItemCurrent: { borderColor: Colors.brand.primary },
   evoItemLocked: { opacity: 0.4 },
-  evoName: { fontSize: 10, color: Colors.text.tertiary, marginTop: 4, textAlign: 'center' },
+  evoImageWrap: {
+    width: 72,
+    height: 72,
+    backgroundColor: 'transparent',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  evoImage: {
+    width: 72,
+    height: 72,
+    backgroundColor: 'transparent',
+  },
+  evoName: { fontSize: 10, color: Colors.text.tertiary, marginTop: 6, textAlign: 'center' },
   evoNameActive: { color: Colors.text.primary, fontWeight: '600' },
   evoRange: { fontSize: 9, color: Colors.text.tertiary },
   currentDot: {

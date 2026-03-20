@@ -500,7 +500,7 @@ const styles = StyleSheet.create({
   userBubble: { backgroundColor: '#00D4AA' },
   errorBubble: { borderWidth: 1, borderColor: 'rgba(255,107,107,0.3)' },
   bubbleText: { fontSize: 15, color: Colors.text.primary, lineHeight: 22 },
-  userBubbleText: { color: 'rgba(255,255,255,1)' },
+  userBubbleText: { color: '#0D1526' },
   retryBtn: { flexDirection: 'row', alignItems: 'center', marginTop: 8, gap: 4 },
   retryText: { fontSize: 13, color: Colors.brand.primary, fontWeight: '500' },
   typingBubble: { flexDirection: 'row', gap: 4, paddingVertical: 14, paddingHorizontal: 16 },

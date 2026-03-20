@@ -5,7 +5,13 @@ export interface FixiLevel {
   maxPercent: number;
   accessory: string;
   accessoryLabel: string;
+  evolutionImage: any;
 }
+
+const FOX_STARTER  = require('../../../assets/images/fox-starter.png');
+const FOX_FIGHTER  = require('../../../assets/images/fox-fighter.png');
+const FOX_WARRIOR  = require('../../../assets/images/fox-warrior.png');
+const FOX_CHAMPION = require('../../../assets/images/fox-champion.png');
 
 export const FIXI_LEVELS: FixiLevel[] = [
   {
@@ -15,6 +21,7 @@ export const FIXI_LEVELS: FixiLevel[] = [
     maxPercent: 10,
     accessory: 'scarf',
     accessoryLabel: 'Basis-Fixi mit Schal',
+    evolutionImage: FOX_STARTER,
   },
   {
     level: 2,
@@ -23,6 +30,7 @@ export const FIXI_LEVELS: FixiLevel[] = [
     maxPercent: 25,
     accessory: 'headband',
     accessoryLabel: 'Stirnband (mint-grün)',
+    evolutionImage: FOX_FIGHTER,
   },
   {
     level: 3,
@@ -31,6 +39,7 @@ export const FIXI_LEVELS: FixiLevel[] = [
     maxPercent: 50,
     accessory: 'cape',
     accessoryLabel: 'Umhang (lila)',
+    evolutionImage: FOX_WARRIOR,
   },
   {
     level: 4,
@@ -39,6 +48,7 @@ export const FIXI_LEVELS: FixiLevel[] = [
     maxPercent: 75,
     accessory: 'shield',
     accessoryLabel: 'Schild mit Blitz-Symbol',
+    evolutionImage: FOX_CHAMPION,
   },
   {
     level: 5,
@@ -47,6 +57,7 @@ export const FIXI_LEVELS: FixiLevel[] = [
     maxPercent: 99,
     accessory: 'sword_shield',
     accessoryLabel: 'Schwert + Schild',
+    evolutionImage: FOX_WARRIOR,
   },
   {
     level: 6,
@@ -55,6 +66,7 @@ export const FIXI_LEVELS: FixiLevel[] = [
     maxPercent: 100,
     accessory: 'crown',
     accessoryLabel: 'Goldene Krone + Komplette Rüstung',
+    evolutionImage: FOX_CHAMPION,
   },
 ];
 

@@ -5,6 +5,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   Animated,
+  Easing,
   Dimensions,
   Platform,
   ActivityIndicator,
@@ -58,17 +59,11 @@ export default function OnboardingStep7() {
   const quoteOpacity = useRef(new Animated.Value(0)).current;
   const brandOpacity = useRef(new Animated.Value(0)).current;
 
-  // Crown shimmer – single progress value (0→1) drives both translateX AND opacity
-  // opacity=0 at start/end of each sweep → no visible flash on loop reset
-  const shimmerAnim = useRef(new Animated.Value(0)).current;
-  const shimmerX = shimmerAnim.interpolate({
-    inputRange: [0, 1],
-    outputRange: [-CROWN_WIDTH * 5, CROWN_WIDTH * 2],
-  });
-  const shimmerOpacity = shimmerAnim.interpolate({
-    inputRange: [0, 0.05, 0.85, 1],
-    outputRange: [0, 1, 1, 0],
-  });
+  // Crown shimmer – two separate values for guaranteed atomic reset.
+  // shimmerPos resets via synchronous setValue() while shimmerOpa is already 0.
+  // No Animated.loop, no duration:0 race condition, no frame gap possible.
+  const shimmerPos = useRef(new Animated.Value(-CROWN_WIDTH * 8)).current;
+  const shimmerOpa = useRef(new Animated.Value(0)).current;
 
   const payoffInfo = useMemo(() => {
     if (debts.length > 0) {
@@ -128,25 +123,32 @@ export default function OnboardingStep7() {
       ]).start();
     }, 1300);
 
-    // ── Crown shimmer sweep – opacity-gated to prevent flash on loop reset ──────
-    setTimeout(() => {
-      Animated.loop(
-        Animated.sequence([
-          Animated.timing(shimmerAnim, {
-            toValue: 1,
+    // ── Crown shimmer – recursive callback, no loop reset race condition ─────
+    // setValue() is synchronous: position is guaranteed off-screen before
+    // any animation frame runs. Opacity is already 0 at that moment.
+    const runShimmer = () => {
+      shimmerOpa.setValue(0);                    // sync: opacity to 0
+      shimmerPos.setValue(-CROWN_WIDTH * 8);     // sync: position far off-screen
+      Animated.sequence([
+        Animated.delay(2800),
+        Animated.parallel([
+          // Sweep translateX across crown
+          Animated.timing(shimmerPos, {
+            toValue: CROWN_WIDTH * 4,
             duration: 750,
+            easing: Easing.linear,
             useNativeDriver: true,
           }),
-          // instant reset to 0 – opacity is 0 at both ends so no visible jump
-          Animated.timing(shimmerAnim, {
-            toValue: 0,
-            duration: 0,
-            useNativeDriver: true,
-          }),
-          Animated.delay(2800),
-        ])
-      ).start();
-    }, 1900);
+          // Opacity: fade in → hold → fade out within the sweep
+          Animated.sequence([
+            Animated.timing(shimmerOpa, { toValue: 1, duration: 80,  useNativeDriver: true }),
+            Animated.delay(590),
+            Animated.timing(shimmerOpa, { toValue: 0, duration: 80,  useNativeDriver: true }),
+          ]),
+        ]),
+      ]).start(({ finished }) => { if (finished) runShimmer(); });
+    };
+    setTimeout(runShimmer, 1900);
 
     requestReviewIfAppropriate();
   }, []);
@@ -232,8 +234,8 @@ export default function OnboardingStep7() {
             <View style={styles.crownWindow} pointerEvents="none">
               <Animated.View
                 style={{
-                  transform: [{ translateX: shimmerX }],
-                  opacity: shimmerOpacity,
+                  transform: [{ translateX: shimmerPos }],
+                  opacity: shimmerOpa,
                   width: CROWN_WIDTH * 5,
                   height: CROWN_HEIGHT,
                   marginLeft: -CROWN_WIDTH,

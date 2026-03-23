@@ -9,7 +9,7 @@
   },
 
   "versioning": {
-    "current_version": "1.3.4",
+    "current_version": "1.3.41",
     "build_number": "23",
     "expo_sdk": "54.0.33",
     "react_native": "0.81.5",
@@ -20,12 +20,12 @@
       { "version": "1.3.1",   "label": "Brand Polish Sprint", "notes": "FoxMascot web shadow fix, Syne font removed, Paywall/Profile/AI-Coach font fixes, full QA" },
       { "version": "1.3.1",   "label": "Pre-Release Sprint", "notes": "Push Notifications, Face-ID Upgrade, Light Mode Audit, Fox Evolution System (4 Evolution-Images + excited/thinking), KI-Coach fox-thinking, Quick-Action fix, KeyboardAvoidingView fix, step5/6 visual upgrade" },
       { "version": "1.3.2",   "label": "Fox Evolution + Branding", "notes": "12 Fox assets integriert (starter/fighter/warrior/champion/excited/thinking), getCurrentEvoFox() helper, face-id Overhaul, new App Icon (Mint+Krone), fox-base.png als Splash, Git Repo Recovery, Progress Dots auf step7 entfernt" },
-      { "version": "1.3.4",   "label": "Crown Shimmer Final Fix + Icon Cleanup", "notes": "opacity-gated shimmerAnim (0→1) eliminiert Flash-Moment beim Loop-Reset. Neues App-Icon (icon.png Mint+Krone) + Splash-Icon (splash-icon.png schwarz+Krone) getrennt. Alte Icon-Dateien entfernt. BuildNumber 23." }
+      { "version": "1.3.41",   "label": "Crown Shimmer Final Fix + Icon Cleanup", "notes": "opacity-gated shimmerAnim (0→1) eliminiert Flash-Moment beim Loop-Reset. Neues App-Icon (icon.png Mint+Krone) + Splash-Icon (splash-icon.png schwarz+Krone) getrennt. Alte Icon-Dateien entfernt. BuildNumber 23." }
     ],
     "next_planned": "1.4.0 – Streak Shield IAP",
     "git_branch": "conflict_210226_0044",
     "git_repo": "https://github.com/mrxbtcno1-boop/fixi-app",
-    "last_commit": "V1.3.4 – version bump, buildNumber 23",
+    "last_commit": "V1.3.41 – version bump, buildNumber 23",
     "last_push": "2026-03-20"
   },
 
@@ -295,7 +295,7 @@
     },
     "profile": {
       "route": "/(tabs)/profile",
-      "version_display": "© 2026 Fixi App v1.3.4"
+      "version_display": "© 2026 Fixi App v1.3.41"
     }
   },
 

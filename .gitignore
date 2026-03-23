@@ -65,3 +65,7 @@ tsconfig.json
 eas.json
 package.json
 package-lock.json
+-e 
+# Environment files
+*.env
+*.env.*

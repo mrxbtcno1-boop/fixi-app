@@ -123,27 +123,27 @@ export default function OnboardingStep7() {
       ]).start();
     }, 1300);
 
-    // ── Crown shimmer – recursive callback, no loop reset race condition ─────
-    // setValue() is synchronous: position is guaranteed off-screen before
-    // any animation frame runs. Opacity is already 0 at that moment.
+    // ── Crown shimmer – useNativeDriver: FALSE is intentional ────────────────
+    // With useNativeDriver:true, iOS CALayer transforms bypass overflow:hidden
+    // clipping (UIView mask). The gradient escapes the crownWindow entirely.
+    // JS driver ensures overflow:hidden clips correctly. Performance is fine
+    // for a subtle shimmer that fires every ~3.5s.
     const runShimmer = () => {
-      shimmerOpa.setValue(0);                    // sync: opacity to 0
-      shimmerPos.setValue(-CROWN_WIDTH * 8);     // sync: position far off-screen
+      shimmerOpa.setValue(0);
+      shimmerPos.setValue(-CROWN_WIDTH * 8);
       Animated.sequence([
         Animated.delay(2800),
         Animated.parallel([
-          // Sweep translateX across crown
           Animated.timing(shimmerPos, {
             toValue: CROWN_WIDTH * 4,
             duration: 750,
             easing: Easing.linear,
-            useNativeDriver: true,
+            useNativeDriver: false,
           }),
-          // Opacity: fade in → hold → fade out within the sweep
           Animated.sequence([
-            Animated.timing(shimmerOpa, { toValue: 1, duration: 80,  useNativeDriver: true }),
+            Animated.timing(shimmerOpa, { toValue: 1, duration: 80,  useNativeDriver: false }),
             Animated.delay(590),
-            Animated.timing(shimmerOpa, { toValue: 0, duration: 80,  useNativeDriver: true }),
+            Animated.timing(shimmerOpa, { toValue: 0, duration: 80,  useNativeDriver: false }),
           ]),
         ]),
       ]).start(({ finished }) => { if (finished) runShimmer(); });

@@ -69,3 +69,4 @@ package-lock.json
 # Environment files
 *.env
 *.env.*
+.git-credentials
